@@ -5,11 +5,19 @@ const KaKaoBtn = styled.button`
   height: 50px;
   background-color: #FFEB02;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   border-radius: 10px;
   border: none;
   font-size: 18px;
+  margin:2%;
+ 
+  >div{
+    width:150px;
+  }
+  &:hover {
+    cursor: pointer;
+  }
 `
 const KaKaoLogin = () => {
     const REST_API_KEY = '백엔드한테 달라하자1';
@@ -22,7 +30,10 @@ const KaKaoLogin = () => {
   
     return (
       <KaKaoBtn type='button' onClick={loginHandler}>
-        <RiKakaoTalkFill/>kakao 로그인 하러가기
+        <RiKakaoTalkFill/>
+        <div>
+          kakao 로그인 하러가기
+        </div>
       </KaKaoBtn>
     );
   };

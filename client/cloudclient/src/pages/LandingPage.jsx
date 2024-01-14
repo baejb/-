@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { TiWeatherCloudy } from "react-icons/ti";
 import { useState, useRef} from 'react';
 import KaKaoLogin from '../components/Login/KaKaoLogin';
-
+import GoogleLogin from '../components/Login/GoogleLogin';
 const GREETING = '구르미 월드에 오신 걸 환영합니다'
 const Container = styled.div`
     display: flex;
@@ -66,7 +66,13 @@ const ModalContent = styled.div`
     justify-content: center;
     align-items: center;
 `
-
+const LoginBtnDiv =styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+`
 const LandingPage = () => {
     const [LoginModal, showLoginModal] = useState(false);
     const modalBackgroud = useRef();
@@ -92,7 +98,10 @@ const LandingPage = () => {
             {LoginModal && (
                 <ModalWrapper ref={modalBackgroud} onClick={handleModalClose}>
                     <ModalContent onClick={handleModalContentClick}>
-                        <KaKaoLogin/>
+                        <LoginBtnDiv>
+                            <GoogleLogin/>
+                            <KaKaoLogin/>
+                        </LoginBtnDiv>
                     </ModalContent>
                 </ModalWrapper>
             )}
