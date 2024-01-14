@@ -13,7 +13,7 @@ const Container = styled.div`
 `
 const Icon = styled.div`
     width: 100px;
-    height: 40px;
+    height: 45px;
     display: flex;
     justify-content: center;
     align-items: center;
