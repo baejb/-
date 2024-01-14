@@ -13,10 +13,12 @@ const Container = styled.div`
     min-height: 100vh;
     background-image: url(/img/landing.png);
     background-repeat: no-repeat;
+    background-position: center;
     background-size: cover;
+    
 `
 const Title = styled.div`
-   font-size :24px;
+   font-size :18px;
    position: absolute;
    top: 6%;
    display: flex;
