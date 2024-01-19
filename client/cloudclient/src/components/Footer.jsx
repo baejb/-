@@ -8,6 +8,7 @@ const Container = styled.div`
     border-top: 2px gray solid;
     position: fixed;
     bottom: 0;
+    box-sizing: border-box;
     
 
 `
