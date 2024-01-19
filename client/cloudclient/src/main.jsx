@@ -7,6 +7,7 @@ import {
 import App from './App.jsx'
 import ErrorPage from './pages/ErrorPage.jsx';
 import './index.css'
+import SettingPage from './pages/SettingPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,11 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorPage/>,
   },
+  {
+    path: "/setting",
+    element: <SettingPage/>,
+    errorElement: <ErrorPage/>,
+  }
   // {
   //   path: "contacts/:contactId",
   //   element: <Contact />,
