@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { styled } from "styled-components";
 import Footer from "../components/footer";
-import { MdOutlineQuestionMark } from "react-icons/md";
+import { TbDropletQuestion } from "react-icons/tb";
 const Container = styled.div`
     width: 375px;
     /* height: calc(100vh - 10px); */
@@ -132,8 +132,13 @@ const Preview = styled.div`
         width: 100px;
         height: 110px;
         object-fit: fill;
-    }
-    
+    }   
+`
+const NoneCloudyDiv = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 `
 const SettingPage = () => {
     const [selectedCloudy, setSelectedCloudy] = useState('');
@@ -202,10 +207,19 @@ const SettingPage = () => {
                     </label>
                 </div>
                 <div>
+                {selectedCloudy ?
                 <Preview color={`${selectedBackground}`} >
                     <img src={`/img/${selectedCloudy}.png`}/>
                     {/* {!selectedCloudy && <MdOutlineQuestionMark/>} */}
                 </Preview>
+                :
+                <Preview>
+                    <NoneCloudyDiv>
+                        <TbDropletQuestion />
+                        <MiddleTitle>구르미를 선택해주세요!</MiddleTitle>
+                    </NoneCloudyDiv>
+                </Preview> 
+                }
                 </div>
             </BackgroudDiv>
             
