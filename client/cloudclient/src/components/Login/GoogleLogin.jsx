@@ -7,8 +7,8 @@ const GoogleBtn = styled.button`
   justify-content: space-evenly;
   background-color: white;
   align-items: center;
-  border-radius: 10px;
-  border: 2px solid #d9d9d9;
+  border-radius: 20px;
+  border: none;
   font-size: 18px;
   margin: 2%;
   >div{
@@ -17,6 +17,9 @@ const GoogleBtn = styled.button`
   &:hover {
     cursor: pointer;
   }
+  backdrop-filter: blur(5px); 
+  background-color: rgba(255, 255, 255, 1); 
+  box-shadow: 35px 35px 68px 0px rgba(193, 193, 193, 0.5), inset -8px -8px 16px 0px rgba(193, 193, 193, 0.6), inset 0px 11px 28px 0px rgb(255, 255, 255);
   
 `
 const GoogleLogin = () => {
