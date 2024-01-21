@@ -10,16 +10,20 @@ const GoogleBtn = styled.button`
   border-radius: 20px;
   border: none;
   font-size: 18px;
-  margin: 2%;
+  margin: 5%;
   >div{
     width:150px;
   }
   &:hover {
     cursor: pointer;
   }
+  &:active{
+        transform: translate(0px ,3px);
+       
+  }
   backdrop-filter: blur(5px); 
   background-color: rgba(255, 255, 255, 1); 
-  box-shadow: 35px 35px 68px 0px rgba(193, 193, 193, 0.5), inset -8px -8px 16px 0px rgba(193, 193, 193, 0.6), inset 0px 11px 28px 0px rgb(255, 255, 255);
+  box-shadow:  inset -8px -8px 16px 0px rgba(193, 193, 193, 0.6), inset 0px 11px 28px 0px rgb(255, 255, 255);
   
 `
 const GoogleLogin = () => {

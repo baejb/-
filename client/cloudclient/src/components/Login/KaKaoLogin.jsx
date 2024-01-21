@@ -7,10 +7,10 @@ const KaKaoBtn = styled.button`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 20px;
   border: none;
   font-size: 18px;
-  margin:2%;
+  margin:5%;
  
   >div{
     width:150px;
@@ -18,6 +18,13 @@ const KaKaoBtn = styled.button`
   &:hover {
     cursor: pointer;
   }
+  &:active{
+        transform: translate(0px ,3px);
+    }
+  backdrop-filter: blur(5px); 
+  background-color: #FFEB02;
+  box-shadow: inset -8px -8px 16px 0px rgb(255, 235, 19), inset 0px 11px 28px 0px rgb(255, 255, 255);
+   
 `
 const KaKaoLogin = () => {
     const REST_API_KEY = '백엔드한테 달라하자1';

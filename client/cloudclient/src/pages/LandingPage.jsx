@@ -60,7 +60,7 @@ const ModalWrapper = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.135);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -70,10 +70,13 @@ const ModalContent = styled.div`
     padding: 20px;
     width: 300px;
     height: 240px;
-    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
+    /* backdrop-filter: blur(5px);  */
+    background-color: rgba(255, 255, 255, 1); 
+    border-radius: 26px; 
+    box-shadow: 35px 35px 68px 0px rgba(193, 193, 193, 0.5), inset -8px -8px 16px 0px rgba(193, 193, 193, 0.6), inset 0px 11px 28px 0px rgb(255, 255, 255);
 `
 const LoginBtnDiv =styled.div`
     display: flex;
@@ -84,7 +87,7 @@ const LoginBtnDiv =styled.div`
 `
 const LandingPage = () => {
     const [LoginModal, showLoginModal] = useState(false);
-    const modalBackgroud = useRef();
+    const modalBackground = useRef();
 
     const handleLoginClick = () => {
         showLoginModal(true);
@@ -105,7 +108,7 @@ const LandingPage = () => {
             </Title>
             <LoginBtn onClick={handleLoginClick}>시작하기</LoginBtn>
             {LoginModal && (
-                <ModalWrapper ref={modalBackgroud} onClick={handleModalClose}>
+                <ModalWrapper ref={modalBackground} onClick={handleModalClose}>
                     <ModalContent onClick={handleModalContentClick}>
                         <LoginBtnDiv>
                             <GoogleLogin/>
