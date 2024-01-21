@@ -18,12 +18,14 @@ const Container = styled.div`
     
 `
 const Title = styled.div`
+
    font-size :18px;
    position: absolute;
-   top: 6%;
+   top: 6%;  
    display: flex;
    justify-content: center;
    align-items: center;
+   
  
 `
 const LoginBtn = styled.button`
@@ -33,15 +35,22 @@ const LoginBtn = styled.button`
     position: absolute;
     bottom: 10%;
     font-size: 20px;
-    background-color: #d5fd86;
-    border:none;
+    border: none;
+    backdrop-filter: blur(4px);
+
+    background-color: rgba(255, 255, 255, 0.5);
+
+    border-radius: 26px;
+
+    box-shadow: 35px 35px 68px 0px rgba(184, 233, 134, 0.5), inset -8px -8px 16px 0px rgba(184, 233, 134, 0.6), inset 0px 11px 28px 0px rgb(255, 255, 255);
+
 
     &:hover{
-        box-shadow: 3px 3px 3px#c6eb7c ;
+        cursor: pointer;
     }
     &:active{
-        transform: translate(3px ,3px);
-        box-shadow: none;
+        transform: translate(0px ,3px);
+        /* box-shadow: none; */
     }
 
 `
