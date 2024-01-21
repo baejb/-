@@ -5,9 +5,8 @@ import { IoPersonSharp } from "react-icons/io5";
 const Container = styled.div`
     width: 375px;
     height: 45px;
-    border-top: 2px gray solid;
     position: fixed;
-    bottom: 0;
+    bottom: -5px;
     box-sizing: border-box;
     
 
@@ -25,6 +24,13 @@ const IconDiv = styled.div`
     justify-content: space-around;
     align-items: center;
     background-color: #fffdf6;
+    backdrop-filter: blur(5px);
+
+    background-color: rgba(255, 255, 255, 1);
+
+
+    box-shadow: 35px 35px 68px 0px rgba(239, 239, 239, 0.5), inset -8px -8px 16px 0px rgba(239, 239, 239, 0.6), inset 0px 11px 28px 0px rgb(255, 255, 255);
+
 `
 
 const Footer = () => {
