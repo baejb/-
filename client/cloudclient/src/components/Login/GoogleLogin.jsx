@@ -9,7 +9,7 @@ const GoogleBtn = styled.button`
   align-items: center;
   border-radius: 20px;
   border: none;
-  font-size: 18px;
+  font-size: 14px;
   margin: 5%;
   >div{
     width:150px;
