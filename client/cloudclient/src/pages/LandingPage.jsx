@@ -19,7 +19,7 @@ const Container = styled.div`
 `
 const Title = styled.div`
 
-   font-size :18px;
+   font-size :14px;
    position: absolute;
    top: 6%;  
    display: flex;
@@ -34,7 +34,7 @@ const LoginBtn = styled.button`
     border-radius: 10px;
     position: absolute;
     bottom: 10%;
-    font-size: 20px;
+    font-size: 18px;
     border: none;
     backdrop-filter: blur(4px);
 
