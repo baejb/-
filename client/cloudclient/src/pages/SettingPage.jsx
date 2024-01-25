@@ -3,24 +3,26 @@ import { styled } from "styled-components";
 import Footer from "../components/footer";
 import { TbDropletQuestion } from "react-icons/tb";
 const Container = styled.div`
+    background-color: #9fc6ff;
     width: 375px;
-    /* height: calc(100vh - 10px); */
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px #E3A295 dashed;
-    background-color: white;
+    border: 3px solid transparent;
     box-sizing: border-box;
     margin-bottom: 10px;
     overflow-y: auto; 
-    
-    
+      
 `
 const Title = styled.div`
     font-size: 18px;
     width:100px;
     height: 20px;
     margin : 10%;
+    padding: 5px;
+    color: whitesmoke;
+    text-shadow: 2px 2px 2px #171717;
+
     
 `
 const FlexLayout = styled.div`
@@ -34,17 +36,20 @@ const FlexLayout = styled.div`
 `
 const MiddleTitle = styled.div`
     font-size: 12px;
+    margin-bottom: 10px;
+    color: white;
+    text-shadow: 2px 2px 8px #020254;
 `
 const RadioInput = styled.input`
     margin: 20px;
     appearance: none; 
-    background-color: #E3A295;
+    background-color: #939CD5;
     width: 16px;
     height: 16px;
     border-radius: 50%;
     opacity: 20%;
     border: 3px double #f3f1f1;
-
+    
     &:checked {
         opacity: 1;
     }
@@ -56,7 +61,7 @@ const RadioInput = styled.input`
 const CloudDiv = styled.div`
     width: 300px;
     height: 400px;
-    border: 2px dashed #FAF7F0;
+    border: none;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -71,6 +76,15 @@ const CloudDiv = styled.div`
         }
     }
     margin-bottom: 20%;
+    backdrop-filter: blur(5px);
+
+    background-color: rgba(255, 255, 255, 1);
+
+    border-radius: 26px;
+
+    box-shadow: 35px 35px 68px 0px rgba(159, 198, 255, 0.5), inset -8px -8px 16px 0px rgba(159, 198, 255, 0.6), inset 0px 11px 28px 0px rgb(255, 255, 255);
+
+
 `
 const CloudyImg = styled.img`
     width: 120px;
@@ -90,6 +104,7 @@ const BackgroudDiv = styled.div`
     height: 400px;
     border: 2px dashed #FAF7F0;
     margin-bottom: 20%;
+    border-radius: 20px;
     
     >div{
         display: flex;
@@ -111,7 +126,7 @@ const BackgroundInput = styled.input`
     border-radius: 50%;
     opacity: 0.5;
     border: 3px double #f3f1f1;
-
+    
     &:checked {
      opacity: 1;
     }
@@ -123,11 +138,11 @@ const Preview = styled.div`
     width: 260px;
     height: 300px;
     border-radius: 20px;
-    border: 2px solid #FAF7F0;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: ${({ color }) => color || "white"};
+    
+    background-color: ${({ color }) => color || "aliceblue"};
     >img{
         width: 100px;
         height: 110px;
@@ -140,10 +155,79 @@ const NoneCloudyDiv = styled.div`
     align-items: center;
     flex-direction: column;
 `
+
+const IntroCloudy = styled.div`
+
+    width: 300px;
+    height:150px;
+    backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 20px;
+    box-shadow: 35px 35px 68px 0px rgba(159, 198, 255, 0.5), inset -8px -8px 16px 0px rgba(159, 198, 255, 0.6), inset 0px 11px 28px 0px rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        margin: 5px;
+    }
+    div > span {
+        display: inline-block;
+        margin-right: 10px;
+        color: #1b4687;
+        text-shadow: 1px 1px 2px #acaaaa;
+    }
+    div > input{
+        padding: 10px;
+        border:none;
+        outline: none;
+        width: 180px;
+        box-shadow: 2px 2px 2px gray;
+        backdrop-filter: blur(5px);
+        background-color: rgba(255, 255, 255, 1);
+        border-radius: 20px;
+        box-shadow: 35px 35px 68px 0px rgba(159, 198, 255, 0.5), inset 1px 1px 8px 0px rgba(159, 198, 255, 0.6), inset 0px 11px 28px 0px rgb(255, 255, 255);
+        
+    }
+    margin-bottom: 20%;
+
+`
+const PostBtn = styled.button`
+    width: 150px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 20px;
+    border: none;
+    backdrop-filter: blur(4px);
+    margin-bottom: 20%;
+    background-color: rgba(255, 255, 255, 0.5);
+
+    border-radius: 26px;
+
+    box-shadow: 35px 35px 68px 0px rgba(159, 198, 255, 0.5), inset 1px 1px 8px 0px rgba(159, 198, 255, 0.6), inset 0px 11px 28px 0px rgb(255, 255, 255);
+
+
+    &:hover{
+        cursor: pointer;
+    }
+    &:active{
+        transform: translate(0px ,3px);
+        /* box-shadow: none; */
+    }
+
+`
+
+
+
 const SettingPage = () => {
     const [selectedCloudy, setSelectedCloudy] = useState('');
     const [selectedBackground, setSelectedBackground] = useState('');
-
+    const [cloudyName , setCloudyName] = useState('');
+    const [cloudyIntro, setCloudyIntro] = useState('');
 
     const handleBackgroundClick = (value) =>{
         setSelectedBackground(value);
@@ -151,6 +235,40 @@ const SettingPage = () => {
     const handleCloudyClick = (value) =>{
         setSelectedCloudy(value);
     }
+    const handelCloudyName = (value)=>{
+        setCloudyName(value);
+    }
+    const handleCloudyIntro = (value) => {
+        setCloudyIntro(value);
+    }
+   
+    const sendData = async () => {
+        try {
+            const response = await axios.post('백엔드 API 엔드포인트', {
+                selectedCloudy,
+                selectedBackground,
+                cloudyName,
+                cloudyIntro,
+            });
+            console.log(response.data); // 성공 시 응답 데이터 처리
+            // const userId = response.data.userId; // 데이터 구조에 따라 바꾸기 
+            // const redirectUrl = `/home/${userId}`;
+            // history.push(redirectUrl); // 유저 고유 링크로 이동하기 
+        } catch (error) {
+            console.error('Error:', error); // 에러 처리
+        }
+    };
+
+    const handlePostBtnClick = () => {
+        if (selectedCloudy && selectedBackground && cloudyName && cloudyIntro) {
+            // 데이터가 유효한 경우에만 요청 보냄
+            // sendData();
+            console.log(selectedCloudy , selectedBackground , cloudyName ,cloudyIntro)
+        } else {
+            // 데이터가 유효하지 않은 경우 경고창 띄움
+            alert('구르미 설정을 완료해주세요!');
+        }
+    };
     return (
         <>
         <Container>
@@ -193,8 +311,7 @@ const SettingPage = () => {
             <BackgroudDiv>
                 <div>
                     <label>
-                    <BackgroundInput type="radio" name="backgroud" value="bgbeige" color="#FAF7F0" onChange={() => handleBackgroundClick("#FAF7F0")}/>
-                    
+                    <BackgroundInput type="radio" name="backgroud" value="bgbeige" color="#FAF7F0" onChange={() => handleBackgroundClick("#FAF7F0")}/>    
                     </label>
                     <label>
                     <BackgroundInput type="radio" name="backgroud" value="bgyellow" color="#fae28f" onChange={() => handleBackgroundClick("#fae28f")}/>
@@ -210,7 +327,6 @@ const SettingPage = () => {
                 {selectedCloudy ?
                 <Preview color={`${selectedBackground}`} >
                     <img src={`/img/${selectedCloudy}.png`}/>
-                    {/* {!selectedCloudy && <MdOutlineQuestionMark/>} */}
                 </Preview>
                 :
                 <Preview>
@@ -222,7 +338,21 @@ const SettingPage = () => {
                 }
                 </div>
             </BackgroudDiv>
-            
+            <MiddleTitle>구르미를 소개해주세요!</MiddleTitle>
+            <IntroCloudy>
+                <div>
+                    <span>구르미 이름 :</span>
+                    <input type="text" value={cloudyName}
+                        onChange={(e) => handelCloudyName(e.target.value)} />
+                </div>
+                <div>
+                    <span>한 줄 소개 :</span>
+                    <input type="text" value={cloudyIntro}
+                        onChange={(e) => handleCloudyIntro(e.target.value)}/>
+                </div>
+
+            </IntroCloudy>
+            <PostBtn onClick={handlePostBtnClick}>생성하기</PostBtn>
         </FlexLayout>
         </Container>
         <Footer/>
