@@ -16,7 +16,8 @@ const Container = styled.div`
 `
 const Title = styled.div`
     font-size: 18px;
-    width:100px;
+    width:100%;
+    text-align: center;
     height: 20px;
     margin : 10%;
     padding: 5px;
@@ -168,6 +169,7 @@ const IntroCloudy = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    font-size: 12px;
     > div {
         display: flex;
         justify-content: center;
@@ -176,7 +178,8 @@ const IntroCloudy = styled.div`
         margin: 5px;
     }
     div > span {
-        display: inline-block;
+        width:70px;
+        text-align: right;
         margin-right: 10px;
         color: #1b4687;
         text-shadow: 1px 1px 2px #acaaaa;
@@ -200,7 +203,7 @@ const PostBtn = styled.button`
     width: 150px;
     height: 40px;
     border-radius: 10px;
-    font-size: 20px;
+    font-size: 18px;
     border: none;
     backdrop-filter: blur(4px);
     margin-bottom: 20%;
