@@ -1,7 +1,13 @@
 import { useState } from "react";
+import { useRecoilState } from 'recoil';
+import { isLoggedInState,userIdState } from "../states/LoginAtoms";
 import { styled } from "styled-components";
 import Footer from "../components/footer";
 import { TbDropletQuestion } from "react-icons/tb";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { baseUrl } from "../constants";
+
 const Container = styled.div`
     background-color: #9fc6ff;
     width: 375px;
@@ -231,7 +237,9 @@ const SettingPage = () => {
     const [selectedBackground, setSelectedBackground] = useState('');
     const [cloudyName , setCloudyName] = useState('');
     const [cloudyIntro, setCloudyIntro] = useState('');
-
+    const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+    const [userId, setuserId] = useRecoilState(userIdState);
+    const navigate = useNavigate();
     const handleBackgroundClick = (value) =>{
         setSelectedBackground(value);
     }
@@ -246,27 +254,43 @@ const SettingPage = () => {
     }
    
     const sendData = async () => {
+        const token = localStorage.getItem('token');
+       
+        if(token && isLoggedIn){
         try {
-            const response = await axios.post('백엔드 API 엔드포인트', {
-                selectedCloudy,
-                selectedBackground,
-                cloudyName,
-                cloudyIntro,
-            });
+            const response = await axios.post(
+                `${baseUrl}/users`,
+                
+                {
+                  nickname :cloudyName,
+                  intro: cloudyIntro,
+                  color: selectedCloudy,
+                  background: selectedBackground,
+                },
+                {
+                  withCredentials: true,
+                  headers: {
+                    "ngrok-skip-browser-warning": true,
+                    atk: token, 
+                  },
+                }
+              );
+              
             console.log(response.data); // 성공 시 응답 데이터 처리
-            // const userId = response.data.userId; // 데이터 구조에 따라 바꾸기 
-            // const redirectUrl = `/home/${userId}`;
-            // history.push(redirectUrl); // 유저 고유 링크로 이동하기 
+            console.log(userId); // 데이터 구조에 따라 바꾸기 
+            const redirectUrl = `/home/${userId}`;
+            navigate(redirectUrl); // 유저 고유 링크로 이동하기 
         } catch (error) {
             console.error('Error:', error); // 에러 처리
         }
+        }
+    
     };
 
     const handlePostBtnClick = () => {
         if (selectedCloudy && selectedBackground && cloudyName && cloudyIntro) {
             // 데이터가 유효한 경우에만 요청 보냄
-            // sendData();
-            console.log(selectedCloudy , selectedBackground , cloudyName ,cloudyIntro)
+            sendData();
         } else {
             // 데이터가 유효하지 않은 경우 경고창 띄움
             alert('구르미 설정을 완료해주세요!');

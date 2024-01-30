@@ -80,15 +80,16 @@ const InfoDiv = styled.div`
 `
 
 const Profile = ({userData}) => {
+    console.log(userData);
     return (
         <ProfileDiv>
             <ImgDiv>
-               <img src={userData.result.image}/>
+               <img src={userData.image}/>
             </ImgDiv>
             <InfoDiv>
-                <div>TODAY <span>{userData.result.today}</span>/ {userData.result.total}</div>
-                <div>{userData.result.nickname}</div>
-                <div>{userData.result.intro}</div>
+                <div>TODAY <span>{userData.today}</span>/ {userData.total}</div>
+                <div>{userData.name}</div>
+                <div>{userData.intro}</div>
             </InfoDiv>
         </ProfileDiv>
     );

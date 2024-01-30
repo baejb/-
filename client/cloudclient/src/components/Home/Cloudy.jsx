@@ -65,7 +65,7 @@ const ProgressBarContainer = styled.div`
 `
 
 const ProgressBar = styled.div`
-    width: ${({ percent }) => percent}%;
+    width: ${({ percent }) => percent > 100 ? 100 : percent * 2}%; /* 최대값을 100으로 제한 */
     height: 100%;
     background: linear-gradient(to right, #e74c3c, #f39c12, #f1c40f, #2ecc71, #3498db);
     border-radius: 20px;
@@ -73,17 +73,17 @@ const ProgressBar = styled.div`
 `
 
 const Cloudy = ({userData}) => {
-    const cloudyImage = `/img/${userData.result.color}.png`; // 구르미 이미지 
+    const cloudyImage = `/img/${userData.color}.png`; // 구르미 이미지 
     return (
         <ContentDiv>
-            <Title>{userData.result.nickname}님의 <span>{userData.result.cloudy}</span></Title>
-            <CloudyDiv color={userData.result.background}> 
+            <Title>{userData.name}님의 <span>{userData.nickname}</span></Title>
+            <CloudyDiv color={userData.background}> 
                 <img src={cloudyImage}></img>
             </CloudyDiv>
             <LevelDiv>
-                <span>LV {userData.result.level}</span>
+                <span>LV {userData.level}</span>
                 <ProgressBarContainer>
-                    <ProgressBar percent={userData.result.percent}/>
+                    <ProgressBar percent={userData.percent}/>
                 </ProgressBarContainer>
             </LevelDiv>
         </ContentDiv>

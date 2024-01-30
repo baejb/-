@@ -1,4 +1,5 @@
 import React from 'react'
+import { RecoilRoot } from 'recoil';
 import ReactDOM from 'react-dom/client'
 import {
   createBrowserRouter,
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage/>,
   },
   {
-    path: "/setting",
+    path: "/setting/:userId",
     element: <SettingPage/>,
     errorElement: <ErrorPage/>,
   },
@@ -29,11 +30,11 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage/>,
   },
   {
-    path: "/home/:userId",
+    path: "/home/:id",
     element : <HomePage/>
   },
   {
-    path: "/board/:userId",
+    path: "/board/:id",
     element: <Board />
   },
 
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
   // }, 이런식으로 주소랑, 컴포넌트 적기 , 추가적으로 뒤에 id가 붙거나 하는건 children으로 관리 
 ]);
 ReactDOM.createRoot(document.getElementById('root')).render(
-  
+  <RecoilRoot>
     <RouterProvider router={router} />
-
+  </RecoilRoot>
 )

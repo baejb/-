@@ -1,9 +1,18 @@
 import React from 'react';
+import { useEffect ,useState} from 'react';
 import { styled } from "styled-components";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,useLocation , useParams} from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { isLoggedInState, userIdState } from '../states/LoginAtoms';
+import axios from 'axios';
 import Profile from '../components/Home/Profile';
 import Cloudy from '../components/Home/Cloudy';
 import Footer from '../components/footer';
+import Swal from 'sweetalert2';
+import { BiLoaderCircle } from "react-icons/bi";
+import { baseUrl } from '../constants';
+const localUrl = "http://localhost:5173"
+
 const Container = styled.div`
     background-color: #9fc6ff;
     width: 375px;
@@ -12,7 +21,6 @@ const Container = styled.div`
     align-items: center;
     border: 3px solid transparent;
     box-sizing: border-box;
-    margin-bottom: 10px;
     overflow-y: auto; 
     min-height: 800px;
     margin-bottom: 10%;
@@ -38,26 +46,6 @@ const FlexLayout = styled.div`
     overflow-y: auto; 
     
 `
-const data = {
-    isSuccess: true,
-    code: 1000,
-    message: "요청에 성공하였습니다.",
-    result: {
-        userId: "12345678",
-        nickname: "배정빈",
-        intro: "구르미 잘 키워보겠습니다요오오오옹",
-        link: "link",
-        today: 10,
-        total: 879,
-        color: "cloudyblue1",
-        background: "#fae28f",
-        upgrade: 0,
-        level: 1,
-        image: '/img/cloudyblue1.png',
-        cloudy: '만추니',
-        percent: 60,
-    }
-}
 const BoardBtn = styled.button`
     width: 50%;
     padding: 10px;
@@ -109,26 +97,79 @@ const ShareDiv = styled.div`
         }
     }
 `
+// 공유하기 버튼 자기일때만 보이게 
 const HomePage = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+    const [userId, setuserId] = useRecoilState(userIdState);
+    const [userData, setUserData] = useState(null);
+    const { id } = useParams();
     const handelClickBoardBtn = () =>{
-        const userId = data.result.userId; // 실제 유저 고유 아이디 값으로 변경
-        navigate(`/board/${userId}`);
+        navigate(`/board/${id}`);
     }
+    const handleCopyClipBoard = async (text) => {
+        console.log(location.pathname);
+        try {
+            await navigator.clipboard.writeText(text);
+            Swal.fire(
+                '링크 복사 완료',       
+                '내 구르미월드로 친구들을 초대하세요!', 
+                'success'                         
+            );
+            
+            
+        } catch (err) {
+            console.log(err);
+        }
+    };
+// url 에서 userId 따서 보내주기 
+    useEffect(() => {
+        let token = localStorage.getItem('token');
+        let userId = localStorage.getItem('userId');
+        console.log(token);
+        console.log(userId);
+        console.log(id);
+        const fetchData = async () => {
+          try {
+            
+            const response = await axios.get(`${baseUrl}/users/${id}`, {
+                withCredentials: true,
+                headers: {
+                  "ngrok-skip-browser-warning": true,
+                  atk: token, 
+                },
+              });
+            // 응답 데이터 확인
+            console.log(response.data.result);
+            // 받아온 데이터 상태 업데이트
+            setUserData(response.data.result); // result에 실제 데이터 위치에 따라 변경
+            
+          } catch (error) {
+            console.error('Error:', error);
+          }
+        };
+    
+        // fetchData 함수 실행
+        fetchData();
+      }, []); 
     return (
         <>
             <Container>
                 <FlexLayout>
                         <Title>구르미 월드</Title>
-                    <Profile userData ={data} />
-                    <BoardBtn onClick={handelClickBoardBtn}>
+                    {userData ? <Profile userData={userData} /> : <BiLoaderCircle/>}
+
+                    <BoardBtn onClick={handelClickBoardBtn}> 
                         방명록 쓰러가기
                     </BoardBtn>
-                    <Cloudy userData = {data} />
-                    <ShareDiv>
-                        <button>공유하기</button>
+                    {userData ?<Cloudy userData = {userData} /> : <BiLoaderCircle/> }
+                    {userData && userData.status === 'master' ?
+                        <ShareDiv> 
+                        <button onClick={() => handleCopyClipBoard(`${localUrl}${location.pathname}`)}>공유하기</button>
                         <button>카카오 공유하기</button>
-                    </ShareDiv>
+                    </ShareDiv> : undefined
+                    }
                 </FlexLayout>
             </Container>
             <Footer/>

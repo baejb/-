@@ -8,7 +8,7 @@ const Container = styled.div`
     position: fixed;
     bottom: -5px;
     box-sizing: border-box;
-    
+
 
 `
 const Icon = styled.div`
