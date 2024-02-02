@@ -12,6 +12,8 @@ import SettingPage from './pages/SettingPage.jsx';
 import Oauth from './components/Login/Oauth.jsx';
 import HomePage from './pages/HomePage.jsx';
 import Board from './components/Home/Board.jsx';
+import EditPage from './pages/EditPage.jsx';
+import UpgradePage from './pages/UpgradePage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -20,7 +22,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage/>,
   },
   {
-    path: "/setting/:userId",
+    path: "/setting/:id",
     element: <SettingPage/>,
     errorElement: <ErrorPage/>,
   },
@@ -36,6 +38,14 @@ const router = createBrowserRouter([
   {
     path: "/board/:id",
     element: <Board />
+  },
+  {
+    path: "/edit/:id",
+    element: <EditPage/>
+  },
+  {
+    path: "/upgrade/:id",
+    element: <UpgradePage/>
   },
 
 
