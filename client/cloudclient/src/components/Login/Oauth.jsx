@@ -41,11 +41,7 @@ const Oauth = () => {
                   } else if(userState === 200){
                     setIsLoggedIn(true);
                     navigate(`/home/${userId}`)
-                  }   
-
-                console.log(userId,isLoggedIn )
-              // 여기서 고유 링크인 카카오 id 를 받아서 저장해야됨 (토큰이랑 같이 저장하면 될듯);
-                    
+                  }                       
             }
           } catch (error) {
             console.error('Error:', error);

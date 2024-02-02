@@ -45,11 +45,11 @@ const CloudyDiv = styled.div`
   
 `
 const LevelDiv = styled.div`
-    width:200px;
+    width:80%;
     height: 20px;
     padding: 10px;
     display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
     > span{
         font-size: 14px;
@@ -65,7 +65,7 @@ const ProgressBarContainer = styled.div`
 `
 
 const ProgressBar = styled.div`
-    width: ${({ percent }) => percent > 100 ? 100 : percent * 2}%; /* 최대값을 100으로 제한 */
+    width: ${({ percent }) => percent > 100 ? 100 : percent *1.1}%; /* 최대값을 100으로 제한 */
     height: 100%;
     background: linear-gradient(to right, #e74c3c, #f39c12, #f1c40f, #2ecc71, #3498db);
     border-radius: 20px;

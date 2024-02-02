@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useRecoilState } from 'recoil';
-import { isLoggedInState,userIdState } from "../states/LoginAtoms";
+import { useState, useEffect } from "react";
+// import { useRecoilState } from 'recoil';
+// import { isLoggedInState,userIdState } from "../states/LoginAtoms";
 import { styled } from "styled-components";
 import Footer from "../components/footer";
 import { TbDropletQuestion } from "react-icons/tb";
@@ -237,8 +237,8 @@ const SettingPage = () => {
     const [selectedBackground, setSelectedBackground] = useState('');
     const [cloudyName , setCloudyName] = useState('');
     const [cloudyIntro, setCloudyIntro] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
-    const [userId, setuserId] = useRecoilState(userIdState);
+    // const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+    // const [userId, setuserId] = useRecoilState(userIdState);
     const navigate = useNavigate();
     const handleBackgroundClick = (value) =>{
         setSelectedBackground(value);
@@ -252,11 +252,22 @@ const SettingPage = () => {
     const handleCloudyIntro = (value) => {
         setCloudyIntro(value);
     }
+    // const handleWrongApproach = () =>{
+    //     const userId = localStorage.getItem('userId');
+    //     if(userId && selectedCloudy && selectedBackground && cloudyName && cloudyIntro) {
+    //         console.log('이미 셋팅을 완료하셨네요 ~');
+    //         navigate(`/home/${userId}`);
+    //     }
+    // }
+
+    // useEffect(()=>{
+    //     handleWrongApproach();
+    // },[])
    
     const sendData = async () => {
         const token = localStorage.getItem('token');
-       
-        if(token && isLoggedIn){
+        const userId = localStorage.getItem('userId');
+        if(token){
         try {
             const response = await axios.post(
                 `${baseUrl}/users`,
