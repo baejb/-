@@ -8,9 +8,11 @@ import axios from 'axios';
 import Profile from '../components/Home/Profile';
 import Cloudy from '../components/Home/Cloudy';
 import Footer from '../components/footer';
+import LogOut from '../components/Login/LogOut';
 import Swal from 'sweetalert2';
 import { BiLoaderCircle } from "react-icons/bi";
 import { baseUrl } from '../constants';
+import { FaShareAlt } from "react-icons/fa";
 const localUrl = "http://localhost:5173"
 
 const Container = styled.div`
@@ -22,8 +24,9 @@ const Container = styled.div`
     border: 3px solid transparent;
     box-sizing: border-box;
     overflow-y: auto; 
-    min-height: 800px;
+    min-height: 900px;
     margin-bottom: 10%;
+
       
 `
 const Title = styled.div`
@@ -75,15 +78,19 @@ const ShareDiv = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     >button {
-        width: 120px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 180px;
         padding: 10px;
         border:none;
         border-radius: 20px;
         backdrop-filter: blur(5px);
         background-color: rgba(255, 255, 255, 0.8);
         box-shadow: 35px 35px 68px 0px rgba(159, 198, 255, 0.5), inset -8px -8px 16px 0px rgba(159, 198, 255, 0.6), inset 0px 11px 28px 0px rgb(255, 255, 255);
-        margin: 10px;
+        margin: 20px;
         color: #000000e5;
         font-size: 12px;
         text-shadow: 1px 1px 2px white;
@@ -94,6 +101,9 @@ const ShareDiv = styled.div`
         &:active{
         transform: translate(0px ,3px);
 
+        }
+        >span{
+            margin-left: 5px;
         }
     }
 `
@@ -165,9 +175,9 @@ const HomePage = () => {
                     </BoardBtn>
                     {userData ?<Cloudy userData = {userData} /> : <BiLoaderCircle/> }
                     {userData && userData.status === 'master' ?
-                        <ShareDiv> 
-                        <button onClick={() => handleCopyClipBoard(`${localUrl}${location.pathname}`)}>공유하기</button>
-                        <button>카카오 공유하기</button>
+                    <ShareDiv> 
+                        <button onClick={() => handleCopyClipBoard(`${localUrl}${location.pathname}`)}><FaShareAlt /> <span>공유하기</span> </button>
+                        <LogOut />
                     </ShareDiv> : undefined
                     }
                 </FlexLayout>
