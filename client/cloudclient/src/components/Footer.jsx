@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { GiUpgrade } from "react-icons/gi";
 import { TiHome } from "react-icons/ti";
@@ -43,18 +43,18 @@ const IconDiv = styled.div`
 
 const Footer = () => {
     const navigate = useNavigate();
-    const { id } = useParams();
-
+    // const { id } = useParams();
+    const userId = localStorage.getItem('userId');
     const handleUpgradeClick = () => {
-        navigate(`/upgrade/${id}`);
+        navigate(`/upgrade/${userId}`);
     }
 
     const handleHomeClick = () => {
-        navigate(`/home/${id}`);
+        navigate(`/home/${userId}`);
     }
 
     const handleEditClick = () => {
-        navigate(`/edit/${id}`);
+        navigate(`/edit/${userId}`);
     }
 
     return (
