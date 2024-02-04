@@ -50,7 +50,7 @@ const FlexLayout = styled.div`
     
 `
 const BoardBtn = styled.button`
-    width: 50%;
+    width: 200px;
     padding: 10px;
     border-radius: 20px;
     border:none;
@@ -162,7 +162,7 @@ const HomePage = () => {
     
         // fetchData 함수 실행
         fetchData();
-      }, []); 
+      }, [id]); 
     return (
         <>
             <Container>
