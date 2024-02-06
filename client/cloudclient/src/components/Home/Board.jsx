@@ -8,6 +8,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import BoardList from './BoardList';
 import { RiEmotionSadLine } from "react-icons/ri";
+
 const Container = styled.div`
     background-color: #9fc6ff;
     width: 375px;
@@ -87,7 +88,7 @@ const BoardTextArea = styled.textarea`
     font-size: 10px;
     overflow-y: auto;
     overflow-wrap: break-word; 
-    /* resize: none; 크기 조정 비활성화 */
+    resize: none; 
     
 `
 const PostBtn = styled.div`
@@ -112,16 +113,40 @@ const PostBtn = styled.div`
     }
     }
 `
+const NotBoard = styled.div`
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 200px;
+`
+
+const SecretDiv = styled.div`
+    position: fixed;
+    bottom: 10px;
+    right: 20px;
+    >label {
+        font-size: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+`
 const Board = () => {
     const [userData, setUserData] = useState([]);
-    const [boardData, setBoardData] = useState([]);
+    const [boardData, setBoardData] = useState('');
     const [message, setMessage] = useState("");
+    const [isSecret, setIsSecret] = useState(false);
     const { id } = useParams();
     const navigate = useNavigate();
     let userId = localStorage.getItem('userId');
     let token = localStorage.getItem('token');
     const handleMessageChange = (event) => {
         setMessage(event.target.value);
+    };
+    const handleCheckboxChange = (e) => {
+        setIsSecret(e.target.checked); 
     };
     const fetchData = async () => {
         try {
@@ -136,18 +161,57 @@ const Board = () => {
           console.log(response.data.result);
           // 받아온 데이터 상태 업데이트
           setBoardData(response.data.result); // result에 실제 데이터 위치에 따라 변경
-          
+         
         } catch (error) {
           console.error('Error:', error);
         }
       };
+  
+    const handleEditButtonClick = async (postId, newMessage) => {
+        try {
+            const response = await axios.post(`${baseUrl}/board/update`, 
+            {
+                userId: id,
+                postIdx: postId,
+                context: newMessage
+            },
+            {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json', 
+                    "ngrok-skip-browser-warning": true,
+                    atk: token
+                }
+            });
+            console.log(response.data.result);
+            // 수정된 메시지를 상태에서 업데이트
+            const updatedBoardData = boardData.map(item => {
+                if (item.postIdx === postId) {
+                    return { ...item, context: newMessage };
+                }
+                return item;
+            });
+            setBoardData(updatedBoardData);
+            Swal.fire(
+                '수정 완료',       
+                '', 
+                'success'
+            ).then(() => {
+                window.location.reload();
+            });
+        } catch (error) {
+            console.error('Error:', error);
+            // 오류 발생 시 처리할 작업 추가
+        }
+    }; 
+    
     const handlePostButtonClick = async () => {
         try {
-            let token = localStorage.getItem('token');
             const response = await axios.post(`${baseUrl}/board/create`, 
             {   
                 userId : id,
-                context : message
+                context : message,
+                secret: isSecret,
             }
             , {
                 withCredentials: true,
@@ -157,14 +221,20 @@ const Board = () => {
                     atk: token
                 }
             });
-            
-            fetchData();
-            // 데이터를 성공적으로 보냈을 때 처리할 작업 추가
+            console.log(response.data.result);
+            // fetchData();
+            // const newBoardData = [...boardData, response.data.result];
+            // setBoardData(newBoardData);
+            setMessage('');
+            window.location.reload(); //새로고침( get 요청 )
+           
+         
         } catch (error) {
             console.error('Error:', error);
             // 오류 발생 시 처리할 작업 추가
         }
-    };
+ };
+ 
     useEffect(()=>{
 
         if(!token){
@@ -218,13 +288,21 @@ const Board = () => {
                         onChange={handleMessageChange}
                         placeholder='방명록을 작성해보세요!'/>
                     </div>
+            
                     <PostBtn>
                         <button onClick={handlePostButtonClick}>작성</button>
                     </PostBtn>
+                    <SecretDiv>
+                        <label>비밀글로 작성하기
+                        <input type="checkbox" checked={isSecret} onChange={handleCheckboxChange} ></input>
+                        </label>
+                    </SecretDiv>
+                    
                 </BoardDiv>: undefined}
-                {boardData ?
-                <BoardList boardData={boardData} /> 
-                : <div>작성된 방명록이 없어요 <RiEmotionSadLine/></div>
+                {boardData.length !== 0 ?
+                <BoardList boardData={boardData} setBoardData={setBoardData} onEditButtonClick={handleEditButtonClick} /> 
+                : <NotBoard>작성된 방명록이 없어요 <RiEmotionSadLine/>
+                </NotBoard>
                 }
             </DecoDiv>
            

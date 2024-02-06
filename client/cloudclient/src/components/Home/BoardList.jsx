@@ -6,6 +6,10 @@ import axios from 'axios';
 import { baseUrl } from '../../constants';
 import { useParams } from 'react-router-dom';
 import { RiEmotionSadLine } from "react-icons/ri";
+import { RiDeleteBin5Fill } from "react-icons/ri";
+import { FaEdit } from "react-icons/fa";
+import Swal from 'sweetalert2';
+import { FaLock } from "react-icons/fa";
 const Container = styled.div`
     width:100%;
     display: flex;
@@ -74,6 +78,12 @@ const CreatedDiv = styled.div`
         font-size: 8px;
         color: #454d5aac;
     }
+    >div{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 90px; 
+    }
 `
 const ContextDiv = styled.div`
     width: 140px;
@@ -138,6 +148,7 @@ const Reply = styled.div`
     >span:nth-child(1){
         font-size: 8px;
         color: #33374f;
+        width: 30px;
     }
     >span:nth-child(2){
         font-size: 8px;
@@ -147,8 +158,16 @@ const Reply = styled.div`
         font-size: 5px;
         color: #454d5aac;
     }
+    >div{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        
+    }
     
 `
+
 const NoneReply = styled.div`
     margin-top:10px;
     font-size: 10px;
@@ -157,15 +176,115 @@ const NoneReply = styled.div`
     justify-content: center;
     align-items: center;
 `
-const BoardList = ({ boardData }) => {
+const DeleteBtn = styled.button`
+    width:30px;
+    font-size:10px;
+    color: #3f5e6788;
+    border:none;
+    background: none;
+    &:hover{
+        cursor: pointer;
+    }
+`
+const EditBtn = styled.button`
+    width:30px;
+    font-size:10px;
+    color: #3f5e6788;
+    border:none;
+    background: none;
+    &:hover{
+        cursor: pointer;
+    }
+`
+const ReplyDeleteBtn = styled(DeleteBtn)`
+    width:20px;
+`
+const ReplyEditBtn = styled(EditBtn)`
+    width:20px;
+   
+`
+const PostBtn = styled.button`
+    margin-top: 10px;
+    width:60px;
+    border:none;
+    backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 20px;
+    box-shadow: 35px 35px 68px 0px rgba(93, 159, 248, 0.5), inset -8px -8px 16px 0px rgba(93, 159, 248, 0.6), inset 0px 11px 28px 0px rgb(255, 255, 255);
+    font-size: 12px;
+    text-shadow: 1px 1px 2px white;
+    &:hover{
+        cursor: pointer;
+       
+    }
+    &:active{
+        transform: translate(0px ,3px);
+        
+    }
+    
+`
+const EditDiv = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 10px;
+    > textArea {
+        height: 100px;
+        padding: 10px;
+        font-size: 10px;
+        width: 100%;
+    }
+`
+const EditReplyDiv = styled.div`
+    width: 70%;
+    >input {
+        width: 100%;
+        padding: 2px;
+        font-size: 8px;
+    }
+`
+const EditReplyConfirmBtn = styled.button`
+    width: 40px;
+    font-size: 10px;
+    border: none;
+    backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 20px;
+    box-shadow: 35px 35px 68px 0px rgba(93, 159, 248, 0.5), inset -8px -8px 16px 0px rgba(93, 159, 248, 0.6), inset 0px 11px 28px 0px rgb(255, 255, 255);
+    text-shadow: 1px 1px 2px white;
+`
+const EditReplyCancelBtn = styled.button`
+    width: 40px;
+    font-size: 10px;
+    border: none;
+    backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 20px;
+    box-shadow: 35px 35px 68px 0px rgba(93, 159, 248, 0.5), inset -8px -8px 16px 0px rgba(93, 159, 248, 0.6), inset 0px 11px 28px 0px rgb(255, 255, 255);
+    text-shadow: 1px 1px 2px white;
+`
+const SecretDiv = styled.div`
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #1b1e3b;
+`
+const BoardList = ({ boardData ,setBoardData, onEditButtonClick}) => {
     const [comment, setComment] = useState('');
+    const [editedContext, setEditedContext] = useState('');
+    const [clickedEditId, setClickedEditId] = useState(null);
+    const [clickedReplyEditId, setClickedReplyEditId] = useState(null);
+    const [editedReply, setEditedReply] = useState('');
     const { id } = useParams();
+    const userId = localStorage.getItem('userId');
+    let token = localStorage.getItem('token');
     const handleLinkClick = (link) => {
         window.location.href = link; 
       };
 
       const handlePostComment = async (postId, comment) => {
-        let token = localStorage.getItem('token');
         try {
             const response = await axios.post(
                 `${baseUrl}/board/replies`,
@@ -182,33 +301,189 @@ const BoardList = ({ boardData }) => {
                 }
             );
             console.log('댓글이 성공적으로 등록되었습니다:', response.data);
+            console.log(response.data.result);
+            const responseData = response.data.result;
+            const modifiedData = { ...responseData, kakaoId: userId }; // kakaoId 가 null이라 따로 추가해줌 
+            const newBoardData = boardData.map(item => {
+                if (item.postIdx === postId) {
+                    return { ...item, reply: [...item.reply, modifiedData] };
+                }
+                
+                return item;
+            });
+           
+            console.log(newBoardData);
+            // 새로운 게시글 데이터로 상태 업데이트
+            setBoardData(newBoardData);
+       
+          
+            
         } catch (error) {
             console.error('댓글 등록 오류:', error);
         }
     };
     
-    // handlePostButtonClick 함수 내에서 해당 함수를 호출하여 댓글을 백엔드로 전송합니다.
+
     const handlePostButtonClick = async (postId) => {
-        console.log('댓글 내용:', comment);
+        setComment('');
         await handlePostComment(postId, comment);
+       
     };  
+    const handleEdit = (postId, newMessage) => {
+        onEditButtonClick(postId, newMessage);
+    };
+    const handleEditButtonClick = (postId, context) => {
+        // 수정할 게시물의 내용을 상태에 설정
+        setEditedContext(context);
+        setClickedEditId(postId);
+      
+    };
+
+    const handelReplyEditButtonClick = (replyId, context) => {
+        setEditedReply(context);
+        setClickedReplyEditId(replyId); // 현재 클릭한 댓글의 ID 저장
+    };
+    const handleReplyEditConfirmButtonClick = async (postId, replyId, newMessage) => {
+        try {
+            
+            const response = await axios.post(`${baseUrl}/board/replies/update`, 
+            {
+                userId: id,
+                postIdx: postId,
+                replyIdx: replyId,
+                context: newMessage
+            },
+            {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json', 
+                    "ngrok-skip-browser-warning": true,
+                    atk: token
+                }
+            });
+            console.log(response.data.result);
+            // 수정된 메시지를 상태에서 업데이트
+            const updatedBoardData = boardData.map(item => {
+                if (item.postIdx === postId) {
+                    const updatedReplies = item.reply.map(reply => {
+                        if (reply.replyIdx === replyId) {
+                            return { ...reply, context: newMessage };
+                        }
+                        return reply;
+                    });
+                    return { ...item, reply: updatedReplies };
+                }
+                return item;
+            });
+            setBoardData(updatedBoardData);
+            Swal.fire(
+                '수정 완료',       
+                '', 
+                'success'
+            ).then(() => {
+                window.location.reload();
+            });
+        } catch (error) {
+            console.error('Error:', error);
+            // 오류 발생 시 처리할 작업 추가
+        }
+    }; 
+    const handleDeleteButtonClick = async (postId) => {
+    
+        try {
+            const response = await axios.delete(`${baseUrl}/board/delete`, {
+                withCredentials: true,
+                headers: {
+                    "ngrok-skip-browser-warning": true,
+                    atk: token,
+                },
+                data: {
+                    userId: id,
+                    postIdx: postId
+                }
+            });
+            Swal.fire(
+                '삭제 완료',       
+                '', 
+                'success'
+            ).then(() => {
+                window.location.reload();
+            });
+          // 받아온 데이터 상태 업데이트
+           
+            
+        }catch (error) {
+            console.error('Error:', error);
+          }
+    };
+    const handleDeleteReplyButtonClick = async (postId, replyId) => {
+    
+        try {
+            const response = await axios.delete(`${baseUrl}/board/replies/delete`, {
+                withCredentials: true,
+                headers: {
+                    "ngrok-skip-browser-warning": true,
+                    atk: token,
+                },
+                data: {
+                    userId: id,
+                    postIdx: postId,
+                    replyIdx : replyId
+                }
+            });
+            Swal.fire(
+                '댓글 삭제 완료',       
+                '', 
+                'success'
+            ).then(() => {
+                window.location.reload();
+            });
+          // 받아온 데이터 상태 업데이트
+           
+            
+        }catch (error) {
+            console.error('Error:', error);
+          }
+    };
+
     return (
       <Container>
-        {boardData.map((boardItem, index) => (
-        <BoardDiv key={boardItem.postIdx}>
+        {boardData.map((boardItem, index) => { 
+            if(!boardItem.secret) {
+                return (
+                    <BoardDiv key={boardItem.postIdx}>
+            {boardItem.secret && userId === id || boardItem.secret &&userId === boardItem.userPostInfo.kakaoId?
+                <SecretDiv><FaLock/>비밀글입니다</SecretDiv> : undefined
+            }
+            
             <CreatedDiv>
                 <span>{boardItem.userPostInfo.nickname}</span>
                 <button onClick={() => handleLinkClick(boardItem.userPostInfo.link)}><TbHomeHeart/></button>
                 <span>{boardItem.created}</span>
+                {userId === boardItem.userPostInfo.kakaoId ?
+                <div>
+                <EditBtn onClick={() => handleEditButtonClick(boardItem.postIdx, boardItem.context)}><FaEdit size={16}/></EditBtn>
+                <DeleteBtn onClick={()=> handleDeleteButtonClick(boardItem.postIdx)}><RiDeleteBin5Fill size={16}/></DeleteBtn>  </div>: undefined
+               
+                } 
             </CreatedDiv>
             <div>
                 <ProfileDiv color={boardItem.userPostInfo.background}>
                     <img src={`/img/${boardItem.userPostInfo.color}.png`}></img>
                 </ProfileDiv> 
-                <ContextDiv>{boardItem.context}</ContextDiv>
+                { clickedEditId === boardItem.postIdx  ? 
+                <EditDiv>
+                    <textarea
+                     value={editedContext}
+                    onChange={(e) => setEditedContext(e.target.value)}
+                    />
+                    <PostBtn onClick={()=> handleEdit(boardItem.postIdx, editedContext)}>수정</PostBtn>
+                </EditDiv>
+                :<ContextDiv>{boardItem.context}</ContextDiv>
+                }
             </div>
             <ReplyDiv>
-                <ReplyInput>
+                <ReplyInput key={boardItem.postIdx}>
                     <input 
                         type="text" 
                         // value={comment}
@@ -219,20 +494,136 @@ const BoardList = ({ boardData }) => {
                 </ReplyInput>
             {boardItem.reply.length!==0 ? 
             boardItem.reply.map((replyItem , index) => (
-                <Reply key={replyItem.replyIdx}>
-                    <span>{replyItem.nickname}</span>
-                    <span>:{replyItem.context}</span>
-                    <span>{replyItem.created}</span>
-                </Reply> 
-            )) 
-            : 
-            <NoneReply>댓글이 없어요<RiEmotionSadLine/></NoneReply>
+               
+                <Reply key={index}>
+                <span>{replyItem.nickname}</span>
+                {clickedReplyEditId === replyItem.replyIdx ? (
+                    <EditReplyDiv>
+                        <input 
+                            type="text" 
+                            value={editedReply} 
+                            onChange={(e) => setEditedReply(e.target.value)}
+                        />
+                    </EditReplyDiv>
+                ) : (
+                    <span>{replyItem.context}</span>
+                )}
+                <span>{replyItem.created}</span>
+                {userId === replyItem.kakaoId && (
+                    <div>
+                        {clickedReplyEditId === replyItem.replyIdx ? (
+                            // 현재 수정 중인 댓글인 경우
+                            <>
+                                <EditReplyConfirmBtn onClick={() => handleReplyEditConfirmButtonClick(boardItem.postIdx, replyItem.replyIdx, editedReply)}>확인</EditReplyConfirmBtn>
+                                <EditReplyCancelBtn onClick={() => setClickedReplyEditId(null)}>취소</EditReplyCancelBtn>
+                            </>
+                        ) : (
+                            // 수정 중이 아닌 경우
+                            <>
+                                <ReplyEditBtn onClick={() => handelReplyEditButtonClick(replyItem.replyIdx, replyItem.context)}><FaEdit size={10}/></ReplyEditBtn>
+                                <ReplyDeleteBtn onClick={() => handleDeleteReplyButtonClick(boardItem.postIdx, replyItem.replyIdx)}><RiDeleteBin5Fill size={10}/></ReplyDeleteBtn>
+                            </>
+                        )}
+                    </div>
+                )}
+            </Reply> 
+        )) 
+        :
+        <NoneReply>댓글이 없어요<RiEmotionSadLine/></NoneReply>
             }
 
                
-            </ReplyDiv>
-        </BoardDiv>
-        ))}
+            </ReplyDiv> 
+          
+                     </BoardDiv>
+                )
+            }else if(boardItem.secret && userId === id || boardItem.secret && userId === boardItem.userPostInfo.kakaoId) {
+                return(
+                <BoardDiv key={boardItem.postIdx}>
+                <SecretDiv><FaLock/>비밀글입니다</SecretDiv>    
+            <CreatedDiv>
+                <span>{boardItem.userPostInfo.nickname}</span>
+                <button onClick={() => handleLinkClick(boardItem.userPostInfo.link)}><TbHomeHeart/></button>
+                <span>{boardItem.created}</span>
+                {userId === boardItem.userPostInfo.kakaoId ?
+                <div>
+                <EditBtn onClick={() => handleEditButtonClick(boardItem.postIdx, boardItem.context)}><FaEdit size={16}/></EditBtn>
+                <DeleteBtn onClick={()=> handleDeleteButtonClick(boardItem.postIdx)}><RiDeleteBin5Fill size={16}/></DeleteBtn>  </div>: undefined
+               
+                } 
+            </CreatedDiv>
+            <div>
+                <ProfileDiv color={boardItem.userPostInfo.background}>
+                    <img src={`/img/${boardItem.userPostInfo.color}.png`}></img>
+                </ProfileDiv> 
+                { clickedEditId === boardItem.postIdx  ? 
+                <EditDiv>
+                    <textarea
+                     value={editedContext}
+                    onChange={(e) => setEditedContext(e.target.value)}
+                    />
+                    <PostBtn onClick={()=> handleEdit(boardItem.postIdx, editedContext)}>수정</PostBtn>
+                </EditDiv>
+                :<ContextDiv>{boardItem.context}</ContextDiv>
+                }
+            </div>
+            <ReplyDiv>
+                <ReplyInput key={boardItem.postIdx}>
+                    <input 
+                        type="text" 
+                        // value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                    />
+                     <button onClick={() => handlePostButtonClick(boardItem.postIdx)}>확인</button>
+                    
+                </ReplyInput>
+            {boardItem.reply.length!==0 ? 
+            boardItem.reply.map((replyItem , index) => (
+               
+                <Reply key={index}>
+                <span>{replyItem.nickname}</span>
+                {clickedReplyEditId === replyItem.replyIdx ? (
+                    <EditReplyDiv>
+                        <input 
+                            type="text" 
+                            value={editedReply} 
+                            onChange={(e) => setEditedReply(e.target.value)}
+                        />
+                    </EditReplyDiv>
+                ) : (
+                    <span>{replyItem.context}</span>
+                )}
+                <span>{replyItem.created}</span>
+                {userId === replyItem.kakaoId && (
+                    <div>
+                        {clickedReplyEditId === replyItem.replyIdx ? (
+                            // 현재 수정 중인 댓글인 경우
+                            <>
+                                <EditReplyConfirmBtn onClick={() => handleReplyEditConfirmButtonClick(boardItem.postIdx, replyItem.replyIdx, editedReply)}>확인</EditReplyConfirmBtn>
+                                <EditReplyCancelBtn onClick={() => setClickedReplyEditId(null)}>취소</EditReplyCancelBtn>
+                            </>
+                        ) : (
+                            // 수정 중이 아닌 경우
+                            <>
+                                <ReplyEditBtn onClick={() => handelReplyEditButtonClick(replyItem.replyIdx, replyItem.context)}><FaEdit size={10}/></ReplyEditBtn>
+                                <ReplyDeleteBtn onClick={() => handleDeleteReplyButtonClick(boardItem.postIdx, replyItem.replyIdx)}><RiDeleteBin5Fill size={10}/></ReplyDeleteBtn>
+                            </>
+                        )}
+                    </div>
+                )}
+            </Reply> 
+        )) 
+        :
+        <NoneReply>댓글이 없어요<RiEmotionSadLine/></NoneReply>
+            }
+
+               
+            </ReplyDiv> 
+          
+            </BoardDiv>
+        )}
+        }
+    )}
       </Container>
     );
   };
