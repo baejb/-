@@ -162,9 +162,8 @@ const Reply = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-
-        
     }
+    
     
 `
 
@@ -281,6 +280,7 @@ const BoardList = ({ boardData ,setBoardData, onEditButtonClick}) => {
     const userId = localStorage.getItem('userId');
     let token = localStorage.getItem('token');
     const handleLinkClick = (link) => {
+        console.log('실행');
         window.location.href = link; 
       };
 
@@ -581,7 +581,7 @@ const BoardList = ({ boardData ,setBoardData, onEditButtonClick}) => {
             boardItem.reply.map((replyItem , index) => (
                
                 <Reply key={index}>
-                <span>{replyItem.nickname}</span>
+                <span onClick={() => handleLinkClick(replyItem.link)}>{replyItem.nickname}</span>
                 {clickedReplyEditId === replyItem.replyIdx ? (
                     <EditReplyDiv>
                         <input 
