@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import { TiWeatherCloudy } from "react-icons/ti";
-import { useState, useRef} from 'react';
+import { useState, useRef, useEffect} from 'react';
 import KaKaoLogin from '../components/Login/KaKaoLogin';
 import GoogleLogin from '../components/Login/GoogleLogin';
+import SetToken from '../components/Login/SetToken';
+import { useNavigate } from 'react-router-dom';
 const GREETING = '구르미 월드에 오신 걸 환영합니다'
 const Container = styled.div`
     display: flex;
@@ -86,11 +88,29 @@ const LoginBtnDiv =styled.div`
     
 `
 const LandingPage = () => {
+    const atk = localStorage.getItem('token');
     const [LoginModal, showLoginModal] = useState(false);
     const modalBackground = useRef();
-
+    const id = localStorage.getItem('userId');
+    const navigate = useNavigate();
+    useEffect(() => {
+        async function setToken() {
+          try {
+            await SetToken();
+          } catch (error) {
+            // 로그인 페이지로 리디렉션
+            navigate('/');
+          }
+        }
+    
+        setToken();
+      }, [navigate]);
     const handleLoginClick = () => {
+        if(atk){
+            navigate(`/home/${id}`)
+        } else{
         showLoginModal(true);
+        }
     }
     const handleModalClose = () => {
         showLoginModal(false);

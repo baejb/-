@@ -33,6 +33,9 @@ const LogOut = () => {
     const handleLogout=() =>{
         localStorage.removeItem('userId');
         localStorage.removeItem('token');
+        localStorage.removeItem('rkt');
+        localStorage.removeItem('atkTime');
+        localStorage.removeItem('rtkTime');
         console.log('로그아웃완료');
         Swal.fire(
             '로그아웃 완료',       
