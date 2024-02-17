@@ -1,6 +1,8 @@
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import Swal from 'sweetalert2';
+import { baseUrl } from "../../constants";
 const Container = styled.div`
     width: 90%;
     display: flex;
@@ -30,12 +32,30 @@ const LogoutBtn = styled.button`
    
 const LogOut = () => {
     const navigate = useNavigate();
-    const handleLogout=() =>{
-        localStorage.removeItem('userId');
-        localStorage.removeItem('token');
-        localStorage.removeItem('rkt');
-        localStorage.removeItem('atkTime');
-        localStorage.removeItem('rtkTime');
+    const token = localStorage.getItem('token');
+    const handleLogout= async() =>{
+        try {
+            const response = await axios.post(`${baseUrl}/users/logout`, 
+            {},
+            {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'application/json', 
+                    "ngrok-skip-browser-warning": true,
+                    atk: token
+                }
+            });
+            
+            if(response.status === 200 ){
+            localStorage.removeItem('userId');
+            localStorage.removeItem('token');
+            localStorage.removeItem('rkt');
+            localStorage.removeItem('atkTime');
+            localStorage.removeItem('rtkTime');
+            }
+        }catch(error){
+            console.error('Error:', error);
+        }
         console.log('로그아웃완료');
         Swal.fire(
             '로그아웃 완료',       
