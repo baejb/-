@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { styled } from "styled-components";
-import Footer from "../components/footer";
+import Footer from "../components/Footer";
 import { TbDropletQuestion } from "react-icons/tb";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";

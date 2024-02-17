@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 // import { useRecoilState } from 'recoil';
 // import { isLoggedInState,userIdState } from "../states/LoginAtoms";
 import { styled } from "styled-components";
-import Footer from "../components/footer";
+import Footer from "../components/Footer";
 import { TbDropletQuestion } from "react-icons/tb";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
