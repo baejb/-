@@ -62,6 +62,7 @@ const ProgressBarContainer = styled.div`
     height: 100%;
     background-color: #626262d2; /* 바탕색 설정 */
     border-radius: 20px;
+    margin-right: 10%;
 `
 
 const ProgressBar = styled.div`
@@ -78,7 +79,7 @@ const Cloudy = ({userData}) => {
         <ContentDiv>
             <Title>{userData.name}님의 <span>{userData.nickname}</span></Title>
             <CloudyDiv color={userData.background}> 
-                <img src={cloudyImage}></img>
+                <img src={cloudyImage}></img>         
             </CloudyDiv>
             <LevelDiv>
                 <span>LV {userData.level}</span>
