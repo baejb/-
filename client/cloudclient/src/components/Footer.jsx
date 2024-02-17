@@ -20,6 +20,7 @@ const Icon = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     background-color: transparent;
     transition: color 0.3s; 
 
@@ -29,6 +30,9 @@ const Icon = styled.button`
     &:hover {
         color: #e6e6e6;
     }    
+    >span{
+        font-size: 6px;
+    }
 `
 
 const IconDiv = styled.div`
@@ -60,9 +64,15 @@ const Footer = () => {
     return (
         <Container>
             <IconDiv>
-                <Icon onClick={handleUpgradeClick} ><GiUpgrade /></Icon>
-                <Icon onClick={handleHomeClick} ><TiHome /></Icon>
-                <Icon onClick={handleEditClick}><IoPersonSharp /></Icon>
+                <Icon onClick={handleUpgradeClick} ><GiUpgrade />
+                <span>성장</span>
+                </Icon> 
+                <Icon onClick={handleHomeClick} ><TiHome />
+                <span>홈</span>
+                </Icon>
+                <Icon onClick={handleEditClick}><IoPersonSharp />
+                <span>정보수정</span>
+                </Icon>
             </IconDiv>
         </Container>
     );
