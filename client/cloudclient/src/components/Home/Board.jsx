@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Footer from '../footer';
+import Footer from '../Footer';
 import { useEffect, useState } from 'react';
 import { useParams ,useNavigate } from 'react-router-dom';
 import { baseUrl } from '../../constants';

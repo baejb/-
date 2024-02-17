@@ -7,12 +7,12 @@ import { isLoggedInState, userIdState } from '../states/LoginAtoms';
 import axios from 'axios';
 import Profile from '../components/Home/Profile';
 import Cloudy from '../components/Home/Cloudy';
-import Footer from '../components/footer';
 import LogOut from '../components/Login/LogOut';
 import Swal from 'sweetalert2';
 import { BiLoaderCircle } from "react-icons/bi";
 import { baseUrl } from '../constants';
 import { FaShareAlt } from "react-icons/fa";
+import Footer from '../components/Footer';
 const localUrl = "http://localhost:5173"
 
 const Container = styled.div`
