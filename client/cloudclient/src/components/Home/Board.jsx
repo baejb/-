@@ -8,7 +8,12 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import BoardList from './BoardList';
 import { RiEmotionSadLine } from "react-icons/ri";
-
+import Pagination from './Pagination';
+import SetToken from '../Login/SetToken';
+const ParentDiv = styled.div`
+    min-height: 100vh;
+    background-color: #9fc6ff;
+`
 const Container = styled.div`
     background-color: #9fc6ff;
     width: 375px;
@@ -139,18 +144,47 @@ const Board = () => {
     const [message, setMessage] = useState("");
     const [isSecret, setIsSecret] = useState(false);
     const { id } = useParams();
+    const [totalPages, setTotalPages] = useState(0);
     const navigate = useNavigate();
     let userId = localStorage.getItem('userId');
     let token = localStorage.getItem('token');
+    const urlParams = new URLSearchParams(window.location.search);
+    const pageValue = urlParams.get('page');
+    // let pageNum = pageValue ? pageValue : 1;
+    let pageNum ;
+    if (pageValue !== undefined && !isNaN(pageValue) && parseInt(pageValue) > 0) {
+        pageNum = parseInt(pageValue);
+    } else {
+        pageNum = 1;
+    }
+
+    // pageNum이 음수인 경우 1로 설정
+    if (pageNum <= 0) {
+        console.log('tlf');
+        pageNum = 1;
+    
+        
+    }
+
+    // pageNum이 totalPages를 초과하는 경우 totalPages로 설정
+    if (pageNum > totalPages && pageNum > 1 ) {
+        pageNum = totalPages;
+        console.log('tl');
+    }
+    console.log(pageValue);
+    console.log(pageNum);
+
     const handleMessageChange = (event) => {
         setMessage(event.target.value);
     };
     const handleCheckboxChange = (e) => {
         setIsSecret(e.target.checked); 
     };
-    const fetchData = async () => {
+   
+      const fetchPagesData = async (page) => {
+        
         try {
-          const response = await axios.get(`${baseUrl}/board/${id}`, {
+          const response = await axios.get(`${baseUrl}/board/page/${id}?page=${page}`, {
               withCredentials: true,
               headers: {
                 "ngrok-skip-browser-warning": true,
@@ -158,10 +192,23 @@ const Board = () => {
               },
             });
           // 응답 데이터 확인
-          console.log(response.data.result);
+
+       
+          if(response.data.isSuccess === false){
+            Swal.fire(
+                '존재하지 않는 사용자입니다.',       
+                '', 
+                'error'
+            )
+            navigate('/');
+          }
           // 받아온 데이터 상태 업데이트
-          setBoardData(response.data.result); // result에 실제 데이터 위치에 따라 변경
+          if(response.data.result.postListRes || response.data.result.totalPages){
+          setBoardData(response.data.result.postListRes); // result에 실제 데이터 위치에 따라 변경
+          setTotalPages(response.data.result.totalPages);
          
+         
+          }
         } catch (error) {
           console.error('Error:', error);
         }
@@ -206,6 +253,7 @@ const Board = () => {
     }; 
     
     const handlePostButtonClick = async () => {
+        if(message.length > 0){
         try {
             const response = await axios.post(`${baseUrl}/board/create`, 
             {   
@@ -233,7 +281,15 @@ const Board = () => {
             console.error('Error:', error);
             // 오류 발생 시 처리할 작업 추가
         }
+    } else {
+        Swal.fire(
+            '방명록을 작성해주세요!',       
+            '', 
+            'error'                         
+        );
+    }
  };
+ 
  
     useEffect(()=>{
 
@@ -255,9 +311,20 @@ const Board = () => {
                         atk: token, 
                     }
                 });
+                console.log(response.data);
                 console.log(response.data.result);
+                if(response.data.isSuccess === false){
+                    navigate('/');
+                    Swal.fire(
+                        '존재하지 않는 회원입니다.',       
+                        '', 
+                        'error'
+                    )
+                }
               // 받아온 데이터 상태 업데이트
+              if(response.data.result){
                 setUserData(response.data.result);
+              }
                 
             }catch (error) {
                 console.error('Error:', error);
@@ -267,14 +334,18 @@ const Board = () => {
       
           // fetchData 함수 실행
           fetchUserData();
-          fetchData();
+          fetchPagesData(pageNum);
+          SetToken();
     },[]);
-
+    useEffect(()=>{
+        fetchPagesData(pageNum);
+    },[pageNum])
 
     return (
-        <>
+        <ParentDiv>
         <Container>
             <DecoDiv>
+            
                 <Title><span>{userData.houseName}</span>님의 방명록</Title>
                 {userId !== id ?<BoardDiv>
                     <div>
@@ -304,11 +375,12 @@ const Board = () => {
                 : <NotBoard>작성된 방명록이 없어요 <RiEmotionSadLine/>
                 </NotBoard>
                 }
+                <Pagination totalpages={totalPages} />
             </DecoDiv>
            
         </Container>
          <Footer/>
-         </>
+         </ParentDiv>
     );
 };
 

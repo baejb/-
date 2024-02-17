@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 import { FaLock } from "react-icons/fa";
 const Container = styled.div`
     width:100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -148,7 +149,8 @@ const Reply = styled.div`
     >span:nth-child(1){
         font-size: 8px;
         color: #33374f;
-        width: 30px;
+        margin-right: 5px;
+
     }
     >span:nth-child(2){
         font-size: 8px;
@@ -164,6 +166,11 @@ const Reply = styled.div`
         align-items: center;
     }
     
+    
+`
+const ReplyContainer = styled.div`
+    overflow: auto; 
+    max-height: 150px; 
     
 `
 
@@ -271,7 +278,7 @@ const SecretDiv = styled.div`
     color: #1b1e3b;
 `
 const BoardList = ({ boardData ,setBoardData, onEditButtonClick}) => {
-    const [comment, setComment] = useState('');
+    const [commentInputs, setCommentInputs] = useState(Array(boardData.length).fill(''));
     const [editedContext, setEditedContext] = useState('');
     const [clickedEditId, setClickedEditId] = useState(null);
     const [clickedReplyEditId, setClickedReplyEditId] = useState(null);
@@ -280,11 +287,11 @@ const BoardList = ({ boardData ,setBoardData, onEditButtonClick}) => {
     const userId = localStorage.getItem('userId');
     let token = localStorage.getItem('token');
     const handleLinkClick = (link) => {
-        console.log('실행');
         window.location.href = link; 
       };
 
       const handlePostComment = async (postId, comment) => {
+        if(comment.length > 0){
         try {
             const response = await axios.post(
                 `${baseUrl}/board/replies`,
@@ -300,8 +307,7 @@ const BoardList = ({ boardData ,setBoardData, onEditButtonClick}) => {
                     },
                 }
             );
-            console.log('댓글이 성공적으로 등록되었습니다:', response.data);
-            console.log(response.data.result);
+        
             const responseData = response.data.result;
             const modifiedData = { ...responseData, kakaoId: userId }; // kakaoId 가 null이라 따로 추가해줌 
             const newBoardData = boardData.map(item => {
@@ -312,7 +318,6 @@ const BoardList = ({ boardData ,setBoardData, onEditButtonClick}) => {
                 return item;
             });
            
-            console.log(newBoardData);
             // 새로운 게시글 데이터로 상태 업데이트
             setBoardData(newBoardData);
        
@@ -321,13 +326,27 @@ const BoardList = ({ boardData ,setBoardData, onEditButtonClick}) => {
         } catch (error) {
             console.error('댓글 등록 오류:', error);
         }
+    }else{
+        Swal.fire(
+            '댓글을 작성해주세요!',       
+            '', 
+            'error'                         
+        );
+    }
     };
     
+    const handleCommentInputChange = (index, value) => {
+        const newCommentInputs = [...commentInputs];
+        newCommentInputs[index] = value;
+        setCommentInputs(newCommentInputs);
+    };
 
-    const handlePostButtonClick = async (postId) => {
-        setComment('');
-        await handlePostComment(postId, comment);
-       
+    const handlePostButtonClick = async (postId ,index) => {
+        await handlePostComment(postId, commentInputs[index]);
+        const newCommentInputs = [...commentInputs];
+        newCommentInputs[index] = '';
+        setCommentInputs(newCommentInputs);
+        
     };  
     const handleEdit = (postId, newMessage) => {
         onEditButtonClick(postId, newMessage);
@@ -361,7 +380,7 @@ const BoardList = ({ boardData ,setBoardData, onEditButtonClick}) => {
                     atk: token
                 }
             });
-            console.log(response.data.result);
+       
             // 수정된 메시지를 상태에서 업데이트
             const updatedBoardData = boardData.map(item => {
                 if (item.postIdx === postId) {
@@ -452,9 +471,9 @@ const BoardList = ({ boardData ,setBoardData, onEditButtonClick}) => {
             if(!boardItem.secret) {
                 return (
                     <BoardDiv key={boardItem.postIdx}>
-            {boardItem.secret && userId === id || boardItem.secret &&userId === boardItem.userPostInfo.kakaoId?
+            {/* {boardItem.secret && userId === id || boardItem.secret &&userId === boardItem.userPostInfo.kakaoId?
                 <SecretDiv><FaLock/>비밀글입니다</SecretDiv> : undefined
-            }
+            } */}
             
             <CreatedDiv>
                 <span>{boardItem.userPostInfo.nickname}</span>
@@ -486,15 +505,16 @@ const BoardList = ({ boardData ,setBoardData, onEditButtonClick}) => {
                 <ReplyInput key={boardItem.postIdx}>
                     <input 
                         type="text" 
-                        // value={comment}
-                        onChange={(e) => setComment(e.target.value)}
+                        value={commentInputs[index]} // 각 댓글 입력창의 값을 배열에서 가져옴
+                        onChange={(e) => handleCommentInputChange(index, e.target.value)} // 인덱스와 함께 변경 이벤트 핸들러 호출
                     />
-                     <button onClick={() => handlePostButtonClick(boardItem.postIdx)}>확인</button>
+                     <button onClick={() => handlePostButtonClick(boardItem.postIdx, index)}>확인</button>
                     
                 </ReplyInput>
+                <ReplyContainer>
             {boardItem.reply.length!==0 ? 
-            boardItem.reply.map((replyItem , index) => (
-               
+                boardItem.reply.map((replyItem , index) => (
+                
                 <Reply key={index}>
                 <span>{replyItem.nickname}</span>
                 {clickedReplyEditId === replyItem.replyIdx ? (
@@ -527,16 +547,15 @@ const BoardList = ({ boardData ,setBoardData, onEditButtonClick}) => {
                     </div>
                 )}
             </Reply> 
-        )) 
+        )
+        ) 
         :
         <NoneReply>댓글이 없어요<RiEmotionSadLine/></NoneReply>
             }
-
-               
+            </ReplyContainer>
             </ReplyDiv> 
-          
-                     </BoardDiv>
-                )
+            </BoardDiv>
+         )
             }else if(boardItem.secret && userId === id || boardItem.secret && userId === boardItem.userPostInfo.kakaoId) {
                 return(
                 <BoardDiv key={boardItem.postIdx}>
@@ -568,21 +587,23 @@ const BoardList = ({ boardData ,setBoardData, onEditButtonClick}) => {
                 }
             </div>
             <ReplyDiv>
+                {/* <ReplyInput key={boardItem.postIdx}> */}
                 <ReplyInput key={boardItem.postIdx}>
                     <input 
                         type="text" 
-                        // value={comment}
-                        onChange={(e) => setComment(e.target.value)}
+                        value={commentInputs[index]} // 각 댓글 입력창의 값을 배열에서 가져옴
+                        onChange={(e) => handleCommentInputChange(index, e.target.value)} // 인덱스와 함께 변경 이벤트 핸들러 호출
                     />
-                     <button onClick={() => handlePostButtonClick(boardItem.postIdx)}>확인</button>
+                     <button onClick={() => handlePostButtonClick(boardItem.postIdx, index)}>확인</button>
                     
                 </ReplyInput>
+                {/* </ReplyInput> */}
+            <ReplyContainer >
             {boardItem.reply.length!==0 ? 
             boardItem.reply.map((replyItem , index) => (
-               
-                <Reply key={index}>
-                <span onClick={() => handleLinkClick(replyItem.link)}>{replyItem.nickname}</span>
-                {clickedReplyEditId === replyItem.replyIdx ? (
+                    <Reply key={index}>
+                    <span onClick={() => handleLinkClick(replyItem.link)}>{replyItem.nickname}</span>
+                    {clickedReplyEditId === replyItem.replyIdx ? (
                     <EditReplyDiv>
                         <input 
                             type="text" 
@@ -611,17 +632,24 @@ const BoardList = ({ boardData ,setBoardData, onEditButtonClick}) => {
                         )}
                     </div>
                 )}
-            </Reply> 
-        )) 
-        :
+                    </Reply> 
+             )) 
+             :
         <NoneReply>댓글이 없어요<RiEmotionSadLine/></NoneReply>
             }
 
-               
+        </ReplyContainer>
             </ReplyDiv> 
           
-            </BoardDiv>
+        </BoardDiv>
         )}
+        else if(boardItem.secret && userId !== id || boardItem.secret && userId !== boardItem.userPostInfo.kakaoId){
+            return(
+                <BoardDiv>
+                <SecretDiv><FaLock/>비밀글입니다</SecretDiv> 
+                </BoardDiv> 
+            )
+        }
         }
     )}
       </Container>
