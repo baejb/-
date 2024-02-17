@@ -200,14 +200,14 @@ const UpgradePage = () => {
                 <ExplainDiv>
                     <div>레벨 <span>{upgradeInfo.level}</span></div>
                     <div>현재 내 포인트 <span>{upgradeInfo.upgrade}</span></div>
-                    <div>성장 필요 포인트 <span>{upgradeInfo.needPoint}</span></div>
+                    <div>성장 필요 포인트 <span>{upgradeInfo.needPoint===null ? 0 : upgradeInfo.needPoint}</span></div>
                 </ExplainDiv>
             </ShowCloudyDiv>
             <UpgradeBtn onClick={handleUpgardeButtonClick}>성장</UpgradeBtn>
             {
                 showResult ?
                     <ResultDiv>
-                        { upgradeInfo.needPoint===0 ? 
+                        { upgradeInfo.needPoint===null ? 
                             <div>
                             <IoHappyOutline size="30"/>
                             <p>축하합니다! </p>

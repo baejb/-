@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { TiWeatherCloudy } from "react-icons/ti";
 import { useState, useRef, useEffect} from 'react';
 import KaKaoLogin from '../components/Login/KaKaoLogin';
-import GoogleLogin from '../components/Login/GoogleLogin';
+import GoogleLoginLiv from '../components/Login/GoogleLoginLiv';
 import SetToken from '../components/Login/SetToken';
 import { useNavigate } from 'react-router-dom';
 const GREETING = '구르미 월드에 오신 걸 환영합니다'
@@ -118,6 +118,7 @@ const LandingPage = () => {
     const handleModalContentClick = (e) => {
         e.stopPropagation(); // 모달 내부 클릭 이벤트가 상위로 전파되지 않도록 함
       };
+
     return (
         <Container >
 
@@ -131,7 +132,7 @@ const LandingPage = () => {
                 <ModalWrapper ref={modalBackground} onClick={handleModalClose}>
                     <ModalContent onClick={handleModalContentClick}>
                         <LoginBtnDiv>
-                            <GoogleLogin/>
+                            <GoogleLoginLiv/>
                             <KaKaoLogin/>
                         </LoginBtnDiv>
                     </ModalContent>
