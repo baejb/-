@@ -1,0 +1,15 @@
+
+{
+    "users": [
+      { "id": 1, "name": "John Doe" },
+      { "id": 2, "name": "Jane Doe" }
+     
+    ],
+    
+      "oauth":[ 
+        { "userId": 1234567, "name" : "배정빈"}
+      ]
+    
+  }
+
+  
