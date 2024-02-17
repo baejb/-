@@ -4,7 +4,7 @@ import { baseUrl } from "../constants";
 import { useState, useEffect } from "react";
 import { RiEmotionSadLine } from "react-icons/ri";
 import { IoHappyOutline } from "react-icons/io5";
-import Footer from '../components/footer';
+import Footer from '../components/Footer';
 const Container = styled.div`
     background-color: #9fc6ff;
     width: 375px;

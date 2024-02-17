@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 import { BiLoaderCircle } from "react-icons/bi";
 import { baseUrl } from '../constants';
 import { FaShareAlt } from "react-icons/fa";
-import Footer from '../components/footer';
+import Footer from '../components/Footer';
 const localUrl = "http://localhost:5173"
 
 const Container = styled.div`
