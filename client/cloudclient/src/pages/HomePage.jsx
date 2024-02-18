@@ -15,6 +15,7 @@ import { FaShareAlt } from "react-icons/fa";
 import Footer from '../components/Footer';
 const localUrl = "http://localhost:5173"
 
+
 const Container = styled.div`
     background-color: #9fc6ff;
     width: 375px;
@@ -119,7 +120,6 @@ const HomePage = () => {
         navigate(`/board/${id}`);
     }
     const handleCopyClipBoard = async (text) => {
-        console.log(location.pathname);
         try {
             await navigator.clipboard.writeText(text);
             Swal.fire(
@@ -137,9 +137,7 @@ const HomePage = () => {
     useEffect(() => {
         let token = localStorage.getItem('token');
         let userId = localStorage.getItem('userId');
-        console.log(token);
-        console.log(userId);
-        console.log(id);
+    
         const fetchData = async () => {
           try {
             
@@ -151,7 +149,7 @@ const HomePage = () => {
                 },
               });
             // 응답 데이터 확인
-            console.log(response.data.result);
+   
             // 받아온 데이터 상태 업데이트
             setUserData(response.data.result); // result에 실제 데이터 위치에 따라 변경
             

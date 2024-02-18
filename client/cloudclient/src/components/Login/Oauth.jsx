@@ -32,8 +32,7 @@ const Oauth = () => {
                   const atk = response.data.token[1].token;
                   const rtkExpiredTime = response.data.token[0].tokenExpiresTime;
                   const atkExpiredTime = response.data.token[1].tokenExpiresTime;
-                  console.log(rtkExpiredTime);
-                  console.log(atkExpiredTime);
+            
                   const userId = response.data.userId;
                   localStorage.setItem('rtk', rtk); //리프레쉬 토큰 
                   localStorage.setItem('token', atk); //액세스 토큰 
@@ -41,7 +40,7 @@ const Oauth = () => {
                   localStorage.setItem('atkTime', atkExpiredTime); // 액세스 토큰 만료기간 
                   localStorage.setItem('userId', userId );
                   const userState = response.data.status ;
-                  console.log(response.data);
+        
             
                   // // Recoil 상태 업데이트
                   

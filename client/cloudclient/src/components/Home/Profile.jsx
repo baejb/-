@@ -80,7 +80,7 @@ const InfoDiv = styled.div`
 `
 
 const Profile = ({userData}) => {
-    console.log(userData);
+
     return (
         <ProfileDiv>
             <ImgDiv>

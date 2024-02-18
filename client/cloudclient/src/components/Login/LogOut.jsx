@@ -56,7 +56,7 @@ const LogOut = () => {
         }catch(error){
             console.error('Error:', error);
         }
-        console.log('로그아웃완료');
+  
         Swal.fire(
             '로그아웃 완료',       
             '시작페이지로 이동합니다!', 

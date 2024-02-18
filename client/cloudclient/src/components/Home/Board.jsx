@@ -150,30 +150,8 @@ const Board = () => {
     let token = localStorage.getItem('token');
     const urlParams = new URLSearchParams(window.location.search);
     const pageValue = urlParams.get('page');
-    // let pageNum = pageValue ? pageValue : 1;
-    let pageNum ;
-    if (pageValue !== undefined && !isNaN(pageValue) && parseInt(pageValue) > 0) {
-        pageNum = parseInt(pageValue);
-    } else {
-        pageNum = 1;
-    }
-
-    // pageNum이 음수인 경우 1로 설정
-    if (pageNum <= 0) {
-        console.log('tlf');
-        pageNum = 1;
-    
-        
-    }
-
-    // pageNum이 totalPages를 초과하는 경우 totalPages로 설정
-    if (pageNum > totalPages && pageNum > 1 ) {
-        pageNum = totalPages;
-        console.log('tl');
-    }
-    console.log(pageValue);
-    console.log(pageNum);
-
+    let pageNum = pageValue ? pageValue : 1;
+  
     const handleMessageChange = (event) => {
         setMessage(event.target.value);
     };
@@ -192,22 +170,21 @@ const Board = () => {
               },
             });
           // 응답 데이터 확인
-
        
           if(response.data.isSuccess === false){
             Swal.fire(
-                '존재하지 않는 사용자입니다.',       
+                '잘못된 요청입니다.',       
                 '', 
                 'error'
             )
-            navigate('/');
+       
+            // navigate('/');
           }
+
           // 받아온 데이터 상태 업데이트
           if(response.data.result.postListRes || response.data.result.totalPages){
           setBoardData(response.data.result.postListRes); // result에 실제 데이터 위치에 따라 변경
           setTotalPages(response.data.result.totalPages);
-         
-         
           }
         } catch (error) {
           console.error('Error:', error);
@@ -230,7 +207,7 @@ const Board = () => {
                     atk: token
                 }
             });
-            console.log(response.data.result);
+
             // 수정된 메시지를 상태에서 업데이트
             const updatedBoardData = boardData.map(item => {
                 if (item.postIdx === postId) {
@@ -269,7 +246,7 @@ const Board = () => {
                     atk: token
                 }
             });
-            console.log(response.data.result);
+
             // fetchData();
             // const newBoardData = [...boardData, response.data.result];
             // setBoardData(newBoardData);
@@ -311,8 +288,7 @@ const Board = () => {
                         atk: token, 
                     }
                 });
-                console.log(response.data);
-                console.log(response.data.result);
+     
                 if(response.data.isSuccess === false){
                     navigate('/');
                     Swal.fire(
