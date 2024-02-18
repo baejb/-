@@ -145,7 +145,7 @@ const UpgradePage = () => {
     const handleUpgardeButtonClick = async () => {
         try {
             let token = localStorage.getItem('token');
-            console.log(token);
+   
             const response = await axios.post(`${baseUrl}/users/upgrade`, 
            {},
              {
@@ -156,7 +156,7 @@ const UpgradePage = () => {
                     atk: token
                 }
             });
-            console.log(response.data);
+
             setShowResult(true);
             // setUpgradeInfo(response.data.result);
             
@@ -168,7 +168,7 @@ const UpgradePage = () => {
     const fetchData = async () => {
         try {
             let token = localStorage.getItem('token');
-            console.log(token);
+     
             const response = await axios.get(`${baseUrl}/users/upgrade`, 
              {
                 withCredentials: true,
@@ -178,7 +178,7 @@ const UpgradePage = () => {
                     atk: token
                 }
             });
-            console.log(response.data);
+
             setUpgradeInfo(response.data.result);
             
         } catch (error) {
