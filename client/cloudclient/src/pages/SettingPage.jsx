@@ -252,17 +252,6 @@ const SettingPage = () => {
     const handleCloudyIntro = (value) => {
         setCloudyIntro(value);
     }
-    // const handleWrongApproach = () =>{
-    //     const userId = localStorage.getItem('userId');
-    //     if(userId && selectedCloudy && selectedBackground && cloudyName && cloudyIntro) {
-    //         console.log('이미 셋팅을 완료하셨네요 ~');
-    //         navigate(`/home/${userId}`);
-    //     }
-    // }
-
-    // useEffect(()=>{
-    //     handleWrongApproach();
-    // },[])
    
     const sendData = async () => {
         const token = localStorage.getItem('token');
@@ -287,8 +276,6 @@ const SettingPage = () => {
                 }
               );
               
-            console.log(response.data); // 성공 시 응답 데이터 처리
-            console.log(userId); // 데이터 구조에 따라 바꾸기 
             const redirectUrl = `/home/${userId}`;
             navigate(redirectUrl); // 유저 고유 링크로 이동하기 
         } catch (error) {

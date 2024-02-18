@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { RiKakaoTalkFill } from "react-icons/ri";
+import { domain } from '../../constants';
 const KaKaoBtn = styled.button`
   width: 220px;
   height: 50px;
@@ -28,7 +29,8 @@ const KaKaoBtn = styled.button`
 `
 const KaKaoLogin = () => {
     const REST_API_KEY = '94ff9c49c791f63e35a9ebe20069d1f4';
-    const REDIRECT_URI = 'http://localhost:5173/oauth'; 
+    const REDIRECT_URI = `${domain}/oauth`;
+    // const REDIRECT_URI = 'http://localhost:5173/oauth'; 
     const link = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   
     const loginHandler = () => {

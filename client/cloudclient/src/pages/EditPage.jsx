@@ -156,7 +156,6 @@ const EditPage = () => {
                   },
                 }
               );
-            console.log(response.data); // 성공 시 응답 데이터 처리
             const res = response.data.result;
 
             setCloudyName(res.nickname);
@@ -194,8 +193,7 @@ const EditPage = () => {
                 }
               );
               
-            console.log(response.data); // 성공 시 응답 데이터 처리
-            console.log(userId); // 데이터 구조에 따라 바꾸기 
+         
             const redirectUrl = `/home/${userId}`;
             navigate(redirectUrl); // 유저 고유 링크로 이동하기 
         } catch (error) {
