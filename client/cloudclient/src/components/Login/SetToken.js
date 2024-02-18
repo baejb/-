@@ -17,8 +17,7 @@ async function SetToken() {
     try {
       // 리프레시 토큰 가져오기
       const refreshToken = localStorage.getItem('rtk');
-        console.log(refreshToken);
-        console.log(accessToken);
+   
       // 서버에 액세스 토큰 갱신 요청
       const response = await axios.post(`${baseUrl}/users/reissue`,{}, {
         headers: {
@@ -33,7 +32,7 @@ async function SetToken() {
       localStorage.setItem('token', newAccessToken); //token === atk
       localStorage.setItem('atkTime', newAccessTokenExpireTime);
      
-      console.log('reissue실행');
+
       // axios의 헤더에 새로운 액세스 토큰 설정
       axios.defaults.headers.common['atk'] = newAccessToken;
     } catch (error) {

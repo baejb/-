@@ -13,6 +13,7 @@ import { BiLoaderCircle } from "react-icons/bi";
 import { baseUrl } from '../constants';
 import { FaShareAlt } from "react-icons/fa";
 import Footer from '../components/Footer';
+import { domain } from '../constants';
 const localUrl = "http://localhost:5173"
 
 
@@ -174,7 +175,7 @@ const HomePage = () => {
                     {userData ?<Cloudy userData = {userData} /> : <BiLoaderCircle/> }
                     {userData && userData.status === 'master' ?
                     <ShareDiv> 
-                        <button onClick={() => handleCopyClipBoard(`${localUrl}${location.pathname}`)}><FaShareAlt /> <span>공유하기</span> </button>
+                        <button onClick={() => handleCopyClipBoard(`${domain}${location.pathname}`)}><FaShareAlt /> <span>공유하기</span> </button>
                         <LogOut />
                     </ShareDiv> : undefined
                     }
