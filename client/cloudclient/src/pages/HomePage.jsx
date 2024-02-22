@@ -30,8 +30,7 @@ const Container = styled.div`
     overflow-y: auto; 
     min-height: 900px;
     margin-bottom: 10%;
-
-      
+  
 `
 const Title = styled.div`
     font-size: 18px;

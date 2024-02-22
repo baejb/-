@@ -193,7 +193,6 @@ const Board = () => {
     };
    
       const fetchPagesData = async (page) => {
-        
         try {
           const response = await axios.get(`${baseUrl}/board/page/${id}?page=${page}`, {
               withCredentials: true,
@@ -203,7 +202,8 @@ const Board = () => {
               },
             });
           // 응답 데이터 확인
-       
+          
+            console.log('실행1');
           if(response.data.isSuccess === false){
             Swal.fire(
                 '잘못된 요청입니다.',       
@@ -215,6 +215,7 @@ const Board = () => {
           }
 
           // 받아온 데이터 상태 업데이트
+          console.log(response.data);
           if(response.data.result.postListRes || response.data.result.totalPages){
           setBoardData(response.data.result.postListRes); // result에 실제 데이터 위치에 따라 변경
           setTotalPages(response.data.result.totalPages);
@@ -339,11 +340,8 @@ const Board = () => {
                 console.error('Error:', error);
               }
         };
-
-      
           // fetchData 함수 실행
           fetchUserData();
-          fetchPagesData(pageNum);
           SetToken();
     },[]);
     useEffect(()=>{

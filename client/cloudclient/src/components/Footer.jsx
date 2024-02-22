@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { GiUpgrade } from "react-icons/gi";
+import { IoMdPeople } from "react-icons/io";
 import { TiHome } from "react-icons/ti";
-import { IoPersonSharp } from "react-icons/io5";
+import { FaUserEdit } from "react-icons/fa";
 
 const Container = styled.div`
     min-width: 400px;
@@ -31,7 +31,7 @@ const Icon = styled.button`
         color: #e6e6e6;
     }    
     >span{
-        font-size: 6px;
+        font-size: 8px;
     }
 `
 
@@ -49,8 +49,8 @@ const Footer = () => {
     const navigate = useNavigate();
     // const { id } = useParams();
     const userId = localStorage.getItem('userId');
-    const handleUpgradeClick = () => {
-        navigate(`/upgrade/${userId}`);
+    const handleBookmarkClick = () => {
+        navigate(`/bookmark/${userId}`);
     }
 
     const handleHomeClick = () => {
@@ -64,13 +64,13 @@ const Footer = () => {
     return (
         <Container>
             <IconDiv>
-                <Icon onClick={handleUpgradeClick} ><GiUpgrade />
-                <span>성장</span>
+                <Icon onClick={handleBookmarkClick} ><IoMdPeople size={25}/>
+                <span>친구</span>
                 </Icon> 
-                <Icon onClick={handleHomeClick} ><TiHome />
+                <Icon onClick={handleHomeClick} ><TiHome size={20} />
                 <span>홈</span>
                 </Icon>
-                <Icon onClick={handleEditClick}><IoPersonSharp />
+                <Icon onClick={handleEditClick}><FaUserEdit size={20} />
                 <span>정보수정</span>
                 </Icon>
             </IconDiv>

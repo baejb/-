@@ -14,6 +14,7 @@ import HomePage from './pages/HomePage.jsx';
 import Board from './components/Home/Board.jsx';
 import EditPage from './pages/EditPage.jsx';
 import UpgradePage from './pages/UpgradePage.jsx';
+import BookmarkPage from './pages/BookmarkPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
   {
     path: "/upgrade/:id",
     element: <UpgradePage/>
+  },
+  {
+    path: "/bookmark/:id",
+    element: <BookmarkPage/>
   },
 
 

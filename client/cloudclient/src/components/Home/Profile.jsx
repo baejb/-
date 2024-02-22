@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useState , useEffect } from 'react';
 import styled from 'styled-components'
-
+import { FiUserPlus } from "react-icons/fi";
+import { FiUserMinus } from "react-icons/fi";
+import Swal from 'sweetalert2';
+import axios from 'axios';
+import { baseUrl } from '../../constants';
+import { useParams } from 'react-router-dom';
 const ProfileDiv = styled.div`
     width: 300px;
     height:150px;
@@ -78,11 +83,90 @@ const InfoDiv = styled.div`
 
     
 `
+const BookmarkDiv = styled.div`
+    position: absolute;
+    top:10px;
+    right: 50px;
+    &:active{
+        cursor: pointer;
+    }
+    &:hover{
+        cursor: pointer;
+    }
+`
 
 const Profile = ({userData}) => {
-
+    const [bookmark, setBookmark] = useState(false);
+    const { id } = useParams();
+    const userId = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
+    const handleBookmarkClick = () => {
+        if(bookmark){
+            setBookmark(false);
+            deleteBookmark();
+            Swal.fire(
+                '친구 삭제 완료',       
+                '', 
+                'success'                         
+            );
+        }else{
+            setBookmark(true);
+            updateBookmark();
+            Swal.fire(
+                '친구 등록 완료',       
+                '', 
+                'success'                         
+            );
+        }
+    }
+        const updateBookmark = async () => {
+            try{
+               const response =  await axios.post(`${baseUrl}/users/bookmark`, 
+                      {kakaoId:id},
+                {
+                    withCredentials: true,
+                    headers: {
+                      "ngrok-skip-browser-warning": true,
+                      atk: token, 
+                    },
+                  }
+                    )
+                    console.log(response.data);
+            }catch(error){
+                console.log(error);
+            }
+        }
+        const deleteBookmark = async () => {
+            try {
+                const response = await axios.delete(`${baseUrl}/users/bookmark`, {
+                    withCredentials: true,
+                    headers: {
+                        "ngrok-skip-browser-warning": true,
+                        atk: token,
+                    },
+                    data: {
+                     kakaoId:id
+                    }
+                    ,
+                });
+                console.log(response);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        
+      
     return (
         <ProfileDiv>
+            {id !== userId && token && (
+            <BookmarkDiv onClick={handleBookmarkClick}>
+                {bookmark ? (
+                    <FiUserMinus size={25}/>
+                ) : (
+                    <FiUserPlus size={25}/>
+                )}
+            </BookmarkDiv>
+            )}
             <ImgDiv>
                <img src={userData.image}/>
             </ImgDiv>

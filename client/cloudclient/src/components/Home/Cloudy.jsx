@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
-
+import { useNavigate, useParams } from 'react-router-dom';
 const ContentDiv = styled.div`
     width: 300px;
     height:360px;
@@ -62,11 +62,11 @@ const ProgressBarContainer = styled.div`
     height: 100%;
     background-color: #626262d2; /* 바탕색 설정 */
     border-radius: 20px;
-    margin-right: 5%;
+    margin-right: 2%;
 `
 
 const ProgressBar = styled.div`
-    width: ${({ percent }) => percent > 100 ? 100 : percent *1.1}%; /* 최대값을 100으로 제한 */
+    width: ${({ percent }) => percent > 100 ? 100 : percent }%; /* 최대값을 100으로 제한 */
     height: 100%;
     background: linear-gradient(to right, #e74c3c, #f39c12, #f1c40f, #2ecc71, #3498db);
     border-radius: 20px;
@@ -77,9 +77,36 @@ const PercentSpan = styled.span`
     width:40px;
     color: rgba(69, 77, 90, 0.824);
 `
+const UpgradeDiv = styled.div`
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin: 2%;
+    > button {
+    width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    color: white;
+    text-shadow: 0px 1px 4px white;
+    background: linear-gradient(135deg, #6ab7ff, #ff6b6b);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+    &:active{
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+    }
+`
 
 const Cloudy = ({userData}) => {
     const cloudyImage = `/img/${userData.color}.png`; // 구르미 이미지 
+    const userId = localStorage.getItem('userId');
+    const {id} = useParams();
+    const navigate = useNavigate();
+    const handleClickUpgradeButton = () => {
+        navigate(`/upgrade/${userId}`);
+    }
     return (
         <ContentDiv>
             <Title>{userData.name}님의 <span>{userData.nickname}</span></Title>
@@ -93,6 +120,10 @@ const Cloudy = ({userData}) => {
                 </ProgressBarContainer>
                 <PercentSpan>{userData.percent}P</PercentSpan>
             </LevelDiv>
+            {userId === id ?
+            <UpgradeDiv>
+                <button onClick={handleClickUpgradeButton}>성장하기</button>
+            </UpgradeDiv> : undefined }
         </ContentDiv>
     );
 };

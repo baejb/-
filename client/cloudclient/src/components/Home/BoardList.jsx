@@ -150,6 +150,9 @@ const Reply = styled.div`
         font-size: 8px;
         color: #33374f;
         margin-right: 5px;
+        &:hover{
+            cursor: pointer;
+        }
 
     }
     >span:nth-child(2){
@@ -466,20 +469,16 @@ const BoardList = ({ boardData ,setBoardData, onEditButtonClick}) => {
     };
 
     return (
-      <Container>
+      <Container > 
         {boardData.map((boardItem, index) => { 
             if(!boardItem.secret) {
                 return (
-                    <BoardDiv key={boardItem.postIdx}>
-            {/* {boardItem.secret && userId === id || boardItem.secret &&userId === boardItem.userPostInfo.kakaoId?
-                <SecretDiv><FaLock/>비밀글입니다</SecretDiv> : undefined
-            } */}
-            
+                    <BoardDiv key={boardItem.postIdx}> 
             <CreatedDiv>
                 <span>{boardItem.userPostInfo.nickname}</span>
                 <button onClick={() => handleLinkClick(boardItem.userPostInfo.link)}><TbHomeHeart/></button>
                 <span>{boardItem.created}</span>
-                {userId === boardItem.userPostInfo.kakaoId ?
+                {userId === boardItem.userPostInfo.kakaoId || id === userId ?
                 <div>
                 <EditBtn onClick={() => handleEditButtonClick(boardItem.postIdx, boardItem.context)}><FaEdit size={16}/></EditBtn>
                 <DeleteBtn onClick={()=> handleDeleteButtonClick(boardItem.postIdx)}><RiDeleteBin5Fill size={16}/></DeleteBtn>  </div>: undefined
@@ -516,7 +515,7 @@ const BoardList = ({ boardData ,setBoardData, onEditButtonClick}) => {
                 boardItem.reply.map((replyItem , index) => (
                 
                 <Reply key={index}>
-                <span>{replyItem.nickname}</span>
+                <span onClick={() => handleLinkClick(replyItem.link)}>{replyItem.nickname}</span>
                 {clickedReplyEditId === replyItem.replyIdx ? (
                     <EditReplyDiv>
                         <input 
