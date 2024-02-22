@@ -217,11 +217,11 @@ const UpgradePage = () => {
                                 <div><RiEmotionSadLine size="30"/> </div>
                                 <p>아직은 구르미가 성장할 수 없어요 </p>
                                 구르미가 성장하기 위해선 <span>{upgradeInfo.needPoint}point</span>  더 필요해요
-                             </div> 
-                             
-                   
-                    }
-                    </ResultDiv> : <NotBttonClick>구르미를 성장시켜보세요!</NotBttonClick>
+                             </div>
+                        }
+                    </ResultDiv> :  <NotBttonClick>
+            {upgradeInfo.level === 3 ? "축하합니다! 모든 성장을 완료하셨습니다!" : "구르미를 성장시켜보세요!"}
+        </NotBttonClick>
                     
             }
         </Container>
