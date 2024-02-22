@@ -243,6 +243,7 @@ const SettingPage = () => {
     const [cloudyName , setCloudyName] = useState('');
     const [cloudyIntro, setCloudyIntro] = useState('');
     const [errorCloudName , setErrorCloudName] = useState(false);
+    const [errorCloudIntro , setErrorCloudIntro] = useState(false);
     // const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
     // const [userId, setuserId] = useRecoilState(userIdState);
     const navigate = useNavigate();
@@ -261,7 +262,12 @@ const SettingPage = () => {
         }
     }
     const handleCloudyIntro = (value) => {
+        if(value.length > 20){
+            setErrorCloudIntro(true);
+        } else {
+        setErrorCloudName(false);
         setCloudyIntro(value);
+        }
     }
    
     const sendData = async () => {
@@ -390,6 +396,9 @@ const SettingPage = () => {
                     <input type="text" value={cloudyIntro}
                         onChange={(e) => handleCloudyIntro(e.target.value)}/>
                 </div>
+                {errorCloudIntro ? 
+                <ErrorMessage>20자 이하로 작성해주세요!</ErrorMessage> 
+                : undefined}
 
             </IntroCloudy>
             <PostBtn onClick={handlePostBtnClick}>생성하기</PostBtn>

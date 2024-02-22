@@ -122,6 +122,7 @@ const EditPage = () => {
     const [cloudyName , setCloudyName] = useState('');
     const [errorCloudName , setErrorCloudName] = useState(false);
     const [cloudyIntro, setCloudyIntro] = useState('');
+    const [errorCloudIntro , setErrorCloudIntro] = useState(false);
     const [editCloudy , setEditCloudy] = useState([]);
     const navigate = useNavigate();
     const handleBackgroundClick = (value) =>{
@@ -139,7 +140,12 @@ const EditPage = () => {
         }
     }
     const handleCloudyIntro = (value) => {
+        if(value.length > 20){
+            setErrorCloudIntro(true);
+        } else {
+        setErrorCloudIntro(false);
         setCloudyIntro(value);
+        }
     }
    
     const getData = async () => {
@@ -235,6 +241,10 @@ const EditPage = () => {
                     <input type="text" value={cloudyIntro}
                         onChange={(e) => handleCloudyIntro(e.target.value)}/>
                 </div>
+                {errorCloudIntro ? 
+                <ErrorMessage>
+                    20자 이하로 작성해주세요!
+                </ErrorMessage> : undefined}
 
             </IntroCloudy>
             <PostBtn onClick={handlePostBtnClick}>수정하기</PostBtn>
