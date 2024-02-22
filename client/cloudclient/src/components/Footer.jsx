@@ -6,7 +6,7 @@ import { TiHome } from "react-icons/ti";
 import { IoPersonSharp } from "react-icons/io5";
 
 const Container = styled.div`
-    width: 375px;
+    min-width: 400px;
     height: 45px;
     position: fixed;
     bottom: -5px;
