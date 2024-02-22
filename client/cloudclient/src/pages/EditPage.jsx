@@ -9,7 +9,7 @@ import { baseUrl } from "../constants";
 
 const Container = styled.div`
     background-color: #9fc6ff;
-    width: 375px;
+    min-width: 400px;
     height: 100vh;
     display: flex;
     justify-content: center;

@@ -10,7 +10,7 @@ import { baseUrl } from "../constants";
 
 const Container = styled.div`
     background-color: #9fc6ff;
-    width: 375px;
+    min-width: 400px;
     display: flex;
     justify-content: center;
     align-items: center;

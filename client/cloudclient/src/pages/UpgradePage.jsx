@@ -7,7 +7,7 @@ import { IoHappyOutline } from "react-icons/io5";
 import Footer from '../components/Footer';
 const Container = styled.div`
     background-color: #9fc6ff;
-    width: 375px;
+    min-width: 400px;
     display: flex;
     justify-content: start;
     align-items: center;
