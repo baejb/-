@@ -152,7 +152,11 @@ const HomePage = () => {
             // 응답 데이터 확인
    
             // 받아온 데이터 상태 업데이트
-            setUserData(response.data.result); // result에 실제 데이터 위치에 따라 변경
+            let res = response.data.result ; 
+            if(res.color === 'color' || res.background === 'background' || res.link === 'link'){
+                navigate(`/setting/${userId}`);
+            }
+            setUserData(res); // result에 실제 데이터 위치에 따라 변경
             
           } catch (error) {
             console.error('Error:', error);
