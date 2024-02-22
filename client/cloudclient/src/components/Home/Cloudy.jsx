@@ -53,7 +53,7 @@ const LevelDiv = styled.div`
     align-items: center;
     > span{
         font-size: 14px;
-        width: 40px;
+        width: 50px;
         margin-right: 5px;
     }
 `
@@ -118,7 +118,7 @@ const Cloudy = ({userData}) => {
                 <ProgressBarContainer>
                     <ProgressBar percent={userData.percent}/>
                 </ProgressBarContainer>
-                <PercentSpan>{userData.percent}P</PercentSpan>
+                <PercentSpan>{userData.percent}%</PercentSpan>
             </LevelDiv>
             {userId === id ?
             <UpgradeDiv>
