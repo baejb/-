@@ -62,7 +62,7 @@ const ProgressBarContainer = styled.div`
     height: 100%;
     background-color: #626262d2; /* 바탕색 설정 */
     border-radius: 20px;
-    margin-right: 10%;
+    margin-right: 5%;
 `
 
 const ProgressBar = styled.div`
