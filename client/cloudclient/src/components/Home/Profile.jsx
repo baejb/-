@@ -96,7 +96,7 @@ const BookmarkDiv = styled.div`
 `
 
 const Profile = ({userData}) => {
-    const [bookmark, setBookmark] = useState(false);
+    const [bookmark, setBookmark] = useState(userData.bookmark || false);
     const { id } = useParams();
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
