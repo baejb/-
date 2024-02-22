@@ -46,6 +46,8 @@ const Title = styled.div`
     text-align: center;
     > span{
         font-size: 18px;
+        color: #e6e6e6;
+        
     }
 `
 const BoardDiv = styled.div`
@@ -119,11 +121,36 @@ const PostBtn = styled.div`
     }
 `
 const NotBoard = styled.div`
-    font-size: 20px;
+    width: 300px;
+    height: 150px;
+    position: relative;
+	background: white;
+    border-radius: 20px;
+    box-shadow: 2px 2px 5px #e6e6e6;
+    font-size: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 200px;
+    margin-top: 100px;
+    &:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 60%;
+        width: 0;
+        height: 0;
+        border: 20px solid transparent;
+        border-top-color: white;
+        border-bottom: 0;
+        border-left: 0;
+        margin-left: -10px;
+        margin-bottom: -20px;
+        
+  }
+    >div{
+        font-size: 16px;
+
+    }
 `
 
 const SecretDiv = styled.div`
@@ -137,6 +164,12 @@ const SecretDiv = styled.div`
         align-items: center;
     }
     
+`
+const NoneImage = styled.div`
+    margin-top: 5%;
+    width: 100px;
+    height: 100px;
+
 `
 const Board = () => {
     const [userData, setUserData] = useState([]);
@@ -348,10 +381,19 @@ const Board = () => {
                 </BoardDiv>: undefined}
                 {boardData.length !== 0 ?
                 <BoardList boardData={boardData} setBoardData={setBoardData} onEditButtonClick={handleEditButtonClick} /> 
-                : <NotBoard>작성된 방명록이 없어요 <RiEmotionSadLine/>
+                :<>
+                <NotBoard>작성된 방명록이 없어요 <RiEmotionSadLine/>
                 </NotBoard>
+                <NoneImage>
+                    <img src='/img/cloudypurple2.png'/>
+                </NoneImage>
+                </> 
+                }{
+                    boardData.length !== 0?
+                    <Pagination totalpages={totalPages} /> :
+                    undefined
                 }
-                <Pagination totalpages={totalPages} />
+                
             </DecoDiv>
            
         </Container>
