@@ -85,7 +85,7 @@ const CreatedDiv = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-left: 90px; 
+        margin-left: 50px; 
     }
 `
 const ContextDiv = styled.div`
