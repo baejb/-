@@ -74,11 +74,12 @@ const CreatedDiv = styled.div`
     >span:nth-child(1){
         font-size: 12px;
         color: #df816f;
-        width: 100px;
+        width: 70px;
     }
     >span:nth-child(3){
         font-size: 8px;
         color: #454d5aac;
+        width:80px;
     }
     >div{
         display: flex;
