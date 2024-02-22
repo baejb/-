@@ -14,6 +14,7 @@ import { baseUrl } from '../constants';
 import { FaShareAlt } from "react-icons/fa";
 import Footer from '../components/Footer';
 import { domain } from '../constants';
+import SetToken from '../components/Login/SetToken';
 const localUrl = "http://localhost:5173"
 
 
@@ -165,6 +166,7 @@ const HomePage = () => {
         };
     
         // fetchData 함수 실행
+        SetToken();
         fetchData();
       }, [id]); 
     return (
