@@ -72,6 +72,11 @@ const ProgressBar = styled.div`
     border-radius: 20px;
     transition: width 0.5s ease-in-out;
 `
+const PercentSpan = styled.span`
+    font-size: 14px;
+    width:40px;
+    color: rgba(69, 77, 90, 0.824);
+`
 
 const Cloudy = ({userData}) => {
     const cloudyImage = `/img/${userData.color}.png`; // 구르미 이미지 
@@ -86,6 +91,7 @@ const Cloudy = ({userData}) => {
                 <ProgressBarContainer>
                     <ProgressBar percent={userData.percent}/>
                 </ProgressBarContainer>
+                <PercentSpan>{userData.percent}P</PercentSpan>
             </LevelDiv>
         </ContentDiv>
     );
