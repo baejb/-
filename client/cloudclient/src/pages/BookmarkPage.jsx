@@ -79,8 +79,8 @@ const BookmarkPage = () => {
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
 
-    const handleVisitClick = () => {
-    navigate(data.link);
+    const handleVisitClick = (link) => {
+    navigate(link);
     };
     useEffect(() => {
         const getBookmarkList = async () => {
@@ -112,7 +112,7 @@ const BookmarkPage = () => {
                     <img src={data.image}/>
                     <span>{data.name}님의 홈페이지</span>
                    
-                    <button onClick={handleVisitClick}>방문하기</button>
+                    <button onClick={() => handleVisitClick(data.link)}>방문하기</button>
                 </BookmarkDiv>
                 ))
                 
