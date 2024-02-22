@@ -479,20 +479,12 @@ const BoardList = ({ boardData ,setBoardData, onEditButtonClick}) => {
                 <span>{boardItem.userPostInfo.nickname}</span>
                 <button onClick={() => handleLinkClick(boardItem.userPostInfo.link)}><TbHomeHeart/></button>
                 <span>{boardItem.created}</span>
-                {userId === boardItem.userPostInfo.kakaoId || id === userId ?
+                {userId === boardItem.userPostInfo.kakaoId ?
                 <div>
-                    {id === userId && ( // id === userId 인 경우에만 삭제 버튼을 렌더링합니다.
-                        <DeleteBtn onClick={() => handleDeleteButtonClick(boardItem.postIdx)}>
-                            <RiDeleteBin5Fill size={16}/>
-                        </DeleteBtn>
-                    )}
-                    <EditBtn onClick={() => handleEditButtonClick(boardItem.postIdx, boardItem.context)}>
-                        <FaEdit size={16}/>
-                    </EditBtn>
-                </div>
-                : undefined
-            }
-
+                <EditBtn onClick={() => handleEditButtonClick(boardItem.postIdx, boardItem.context)}><FaEdit size={16}/></EditBtn>
+                <DeleteBtn onClick={()=> handleDeleteButtonClick(boardItem.postIdx)}><RiDeleteBin5Fill size={16}/></DeleteBtn>  </div>: undefined
+               
+                } 
             </CreatedDiv>
             <div>
                 <ProfileDiv color={boardItem.userPostInfo.background}>
@@ -572,20 +564,12 @@ const BoardList = ({ boardData ,setBoardData, onEditButtonClick}) => {
                 <span>{boardItem.userPostInfo.nickname}</span>
                 <button onClick={() => handleLinkClick(boardItem.userPostInfo.link)}><TbHomeHeart/></button>
                 <span>{boardItem.created}</span>
-                {userId === boardItem.userPostInfo.kakaoId || id === userId ?
+                {userId === boardItem.userPostInfo.kakaoId ?
                 <div>
-                    {id === userId && ( // id === userId 인 경우에만 삭제 버튼을 렌더링합니다.
-                        <DeleteBtn onClick={() => handleDeleteButtonClick(boardItem.postIdx)}>
-                            <RiDeleteBin5Fill size={16}/>
-                        </DeleteBtn>
-                    )}
-                    <EditBtn onClick={() => handleEditButtonClick(boardItem.postIdx, boardItem.context)}>
-                        <FaEdit size={16}/>
-                    </EditBtn>
-                </div>
-                : undefined
-            }
-
+                <EditBtn onClick={() => handleEditButtonClick(boardItem.postIdx, boardItem.context)}><FaEdit size={16}/></EditBtn>
+                <DeleteBtn onClick={()=> handleDeleteButtonClick(boardItem.postIdx)}><RiDeleteBin5Fill size={16}/></DeleteBtn>  </div>: undefined
+               
+                } 
             </CreatedDiv>
             <div>
                 <ProfileDiv color={boardItem.userPostInfo.background}>
