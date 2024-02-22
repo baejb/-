@@ -203,7 +203,9 @@ const UpgradePage = () => {
                     <div>성장 필요 포인트 <span>{upgradeInfo.needPoint===null ? 0 : upgradeInfo.needPoint}</span></div>
                 </ExplainDiv>
             </ShowCloudyDiv>
+            {upgradeInfo.level >= 3 ? undefined :
             <UpgradeBtn onClick={handleUpgardeButtonClick}>성장</UpgradeBtn>
+            }
             {
                 showResult ?
                     <ResultDiv>
@@ -220,7 +222,7 @@ const UpgradePage = () => {
                              </div>
                         }
                     </ResultDiv> :  <NotBttonClick>
-            {upgradeInfo.level === 3 ? "축하합니다! 모든 성장을 완료하셨습니다!" : "구르미를 성장시켜보세요!"}
+            {upgradeInfo.level >= 3 ? "축하합니다! 모든 성장을 완료하셨습니다!" : "구르미를 성장시켜보세요!"}
         </NotBttonClick>
                     
             }
