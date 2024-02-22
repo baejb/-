@@ -74,6 +74,7 @@ const CreatedDiv = styled.div`
     >span:nth-child(1){
         font-size: 12px;
         color: #df816f;
+        width: 100px;
     }
     >span:nth-child(3){
         font-size: 8px;
@@ -390,7 +391,7 @@ const BoardList = ({ boardData ,setBoardData, onEditButtonClick}) => {
                     const updatedReplies = item.reply.map(reply => {
                         if (reply.replyIdx === replyId) {
                             return { ...reply, context: newMessage };
-                        }
+                        }   
                         return reply;
                     });
                     return { ...item, reply: updatedReplies };
@@ -480,10 +481,18 @@ const BoardList = ({ boardData ,setBoardData, onEditButtonClick}) => {
                 <span>{boardItem.created}</span>
                 {userId === boardItem.userPostInfo.kakaoId || id === userId ?
                 <div>
-                <EditBtn onClick={() => handleEditButtonClick(boardItem.postIdx, boardItem.context)}><FaEdit size={16}/></EditBtn>
-                <DeleteBtn onClick={()=> handleDeleteButtonClick(boardItem.postIdx)}><RiDeleteBin5Fill size={16}/></DeleteBtn>  </div>: undefined
-               
-                } 
+                    {id === userId && ( // id === userId 인 경우에만 삭제 버튼을 렌더링합니다.
+                        <DeleteBtn onClick={() => handleDeleteButtonClick(boardItem.postIdx)}>
+                            <RiDeleteBin5Fill size={16}/>
+                        </DeleteBtn>
+                    )}
+                    <EditBtn onClick={() => handleEditButtonClick(boardItem.postIdx, boardItem.context)}>
+                        <FaEdit size={16}/>
+                    </EditBtn>
+                </div>
+                : undefined
+            }
+
             </CreatedDiv>
             <div>
                 <ProfileDiv color={boardItem.userPostInfo.background}>
@@ -563,12 +572,20 @@ const BoardList = ({ boardData ,setBoardData, onEditButtonClick}) => {
                 <span>{boardItem.userPostInfo.nickname}</span>
                 <button onClick={() => handleLinkClick(boardItem.userPostInfo.link)}><TbHomeHeart/></button>
                 <span>{boardItem.created}</span>
-                {userId === boardItem.userPostInfo.kakaoId ?
+                {userId === boardItem.userPostInfo.kakaoId || id === userId ?
                 <div>
-                <EditBtn onClick={() => handleEditButtonClick(boardItem.postIdx, boardItem.context)}><FaEdit size={16}/></EditBtn>
-                <DeleteBtn onClick={()=> handleDeleteButtonClick(boardItem.postIdx)}><RiDeleteBin5Fill size={16}/></DeleteBtn>  </div>: undefined
-               
-                } 
+                    {id === userId && ( // id === userId 인 경우에만 삭제 버튼을 렌더링합니다.
+                        <DeleteBtn onClick={() => handleDeleteButtonClick(boardItem.postIdx)}>
+                            <RiDeleteBin5Fill size={16}/>
+                        </DeleteBtn>
+                    )}
+                    <EditBtn onClick={() => handleEditButtonClick(boardItem.postIdx, boardItem.context)}>
+                        <FaEdit size={16}/>
+                    </EditBtn>
+                </div>
+                : undefined
+            }
+
             </CreatedDiv>
             <div>
                 <ProfileDiv color={boardItem.userPostInfo.background}>
