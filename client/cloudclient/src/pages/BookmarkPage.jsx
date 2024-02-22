@@ -78,9 +78,10 @@ const BookmarkPage = () => {
     const [bookmarkData, setBookmarkData] = useState([]);
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
-    // const handleLinkClick = (link) =>{
-    //     navigate(link);
-    // }
+
+    const handleVisitClick = () => {
+    navigate(data.link);
+    };
     useEffect(() => {
         const getBookmarkList = async () => {
             try {
@@ -110,7 +111,8 @@ const BookmarkPage = () => {
                     <BookmarkDiv>
                     <img src={data.image}/>
                     <span>{data.name}님의 홈페이지</span>
-                    <button onClick={() => window.open(data.link)}>방문하기</button>
+                   
+                    <button onClick={handleVisitClick}>방문하기</button>
                 </BookmarkDiv>
                 ))
                 
