@@ -229,6 +229,11 @@ const PostBtn = styled.button`
     }
 
 `
+const ErrorMessage = styled.div`
+    font-size: 8px;
+    color:red;
+    
+`
 
 
 
@@ -237,6 +242,7 @@ const SettingPage = () => {
     const [selectedBackground, setSelectedBackground] = useState('');
     const [cloudyName , setCloudyName] = useState('');
     const [cloudyIntro, setCloudyIntro] = useState('');
+    const [errorCloudName , setErrorCloudName] = useState(false);
     // const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
     // const [userId, setuserId] = useRecoilState(userIdState);
     const navigate = useNavigate();
@@ -247,7 +253,12 @@ const SettingPage = () => {
         setSelectedCloudy(value);
     }
     const handelCloudyName = (value)=>{
+        if(value.length > 6){
+            setErrorCloudName(true);
+        } else {
+        setErrorCloudName(false);
         setCloudyName(value);
+        }
     }
     const handleCloudyIntro = (value) => {
         setCloudyIntro(value);
@@ -370,6 +381,10 @@ const SettingPage = () => {
                     <input type="text" value={cloudyName}
                         onChange={(e) => handelCloudyName(e.target.value)} />
                 </div>
+                {errorCloudName ? 
+                <ErrorMessage>6자 이하로 작성해주세요!</ErrorMessage> 
+                : undefined}
+                
                 <div>
                     <span>한 줄 소개 :</span>
                     <input type="text" value={cloudyIntro}
