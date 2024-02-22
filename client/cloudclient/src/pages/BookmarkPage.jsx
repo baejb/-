@@ -80,7 +80,7 @@ const BookmarkPage = () => {
     const navigate = useNavigate();
 
     const handleVisitClick = (link) => {
-    navigate(link);
+        window.location.href = link;
     };
     useEffect(() => {
         const getBookmarkList = async () => {
