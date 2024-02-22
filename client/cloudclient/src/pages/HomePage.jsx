@@ -154,6 +154,7 @@ const HomePage = () => {
    
             // 받아온 데이터 상태 업데이트
             let res = response.data.result ; 
+            console.log(res);
             if(res.color === 'color' || res.background === 'background' || res.link === 'link'){
                 navigate(`/setting/${userId}`);
             }
