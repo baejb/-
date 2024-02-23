@@ -44,6 +44,13 @@ const MiddleTitle = styled.div`
     margin-bottom: 10px;
     color: white;
     text-shadow: 2px 2px 8px #020254;
+    text-align: center;
+    >div {
+        font-size: 10px;
+        color: white;
+        text-shadow: 2px 2px 8px #020254;
+        text-align: center;
+    }
 `
 const RadioInput = styled.input`
     margin: 20px;
@@ -65,12 +72,13 @@ const RadioInput = styled.input`
 `;
 const CloudDiv = styled.div`
     width: 300px;
-    height: 400px;
+    height: 360px;
     border: none;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    
     >label{
         display: flex;
         flex-direction: column;
@@ -315,38 +323,35 @@ const SettingPage = () => {
         <FlexLayout>    
             <Title>구르미 설정하기</Title>
             
-            <MiddleTitle>키우고 싶은 구르미를 선택해주세요!</MiddleTitle>
+            <MiddleTitle>키우고 싶은 구르미를 선택해주세요!
+                <div>(한번 선택한 구르미는 변경할 수 없어요!)</div>
+            </MiddleTitle>
+           
         <CloudDiv>
         <label onClick={() => handleCloudyClick("cloudyblue1")}>
             <CloudyImg src="/img/cloudyblue1.png" alt="Cloudy Blue" />
             <RadioInput type="radio" name="cloud" value="cloudyblue1" />
-            <ExplainCloudy>
-                특징 : 운동을 잘함
-            </ExplainCloudy>
+         
         </label>
         <label onClick={() => handleCloudyClick("cloudyyellow1")}>
             <CloudyImg src="/img/cloudyyellow1.png" alt="Cloudy Yellow" />
             <RadioInput type="radio" name="cloud" value="cloudyyellow1" />
-            <ExplainCloudy>
-                특징 : 노래를 잘함
-            </ExplainCloudy>
+           
         </label>
         <label onClick={() => handleCloudyClick("cloudypurple1")}>
             <CloudyImg src="/img/cloudypurple1.png" alt="Cloudy Purple" />
             <RadioInput type="radio" name="cloud" value="cloudypurple1" />
-            <ExplainCloudy>
-                특징 : 공감을 잘함
-            </ExplainCloudy>
+           
         </label>
         <label onClick={() => handleCloudyClick("cloudygreen1")}>
             <CloudyImg src="/img/cloudygreen1.png" alt="Cloudy Green" />
             <RadioInput type="radio" name="cloud" value="cloudygreen1" />
-            <ExplainCloudy>
-                특징 : 공부를 잘함
-            </ExplainCloudy>
+          
         </label>
         </CloudDiv>
-            <MiddleTitle>구르미 배경을 선택해주세요!</MiddleTitle>
+            <MiddleTitle>구르미 배경을 선택해주세요!
+            <div>(한번 선택한 배경은 변경할 수 없어요!)</div>
+            </MiddleTitle>
             
             <BackgroudDiv>
                 <div>
