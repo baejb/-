@@ -162,6 +162,7 @@ const HomePage = () => {
             
           } catch (error) {
             console.error('Error:', error);
+            navigate('/error');
           }
         };
     

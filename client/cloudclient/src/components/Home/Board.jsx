@@ -222,6 +222,7 @@ const Board = () => {
           }
         } catch (error) {
           console.error('Error:', error);
+          navigate('/error');
         }
       };
   
@@ -290,6 +291,7 @@ const Board = () => {
          
         } catch (error) {
             console.error('Error:', error);
+            navigate('/error');
             // 오류 발생 시 처리할 작업 추가
         }
     } else {
@@ -338,6 +340,7 @@ const Board = () => {
                 
             }catch (error) {
                 console.error('Error:', error);
+                navigate('/error');
               }
         };
           // fetchData 함수 실행

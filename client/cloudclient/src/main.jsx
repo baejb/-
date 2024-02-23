@@ -34,31 +34,31 @@ const router = createBrowserRouter([
   },
   {
     path: "/home/:id",
-    element : <HomePage/>
+    element : <HomePage/>,
+    errorElement: <ErrorPage/>,
   },
   {
     path: "/board/:id",
-    element: <Board />
+    element: <Board />,
+    errorElement: <ErrorPage/>,
   },
   {
     path: "/edit/:id",
-    element: <EditPage/>
+    element: <EditPage/>,
+    errorElement: <ErrorPage/>,
   },
   {
     path: "/upgrade/:id",
-    element: <UpgradePage/>
+    element: <UpgradePage/>,
+    errorElement: <ErrorPage/>,
   },
   {
     path: "/bookmark/:id",
-    element: <BookmarkPage/>
+    element: <BookmarkPage/>,
+    errorElement: <ErrorPage/>,
   },
 
 
-
-  // {
-  //   path: "contacts/:contactId",
-  //   element: <Contact />,
-  // }, 이런식으로 주소랑, 컴포넌트 적기 , 추가적으로 뒤에 id가 붙거나 하는건 children으로 관리 
 ]);
 ReactDOM.createRoot(document.getElementById('root')).render(
   <RecoilRoot>
