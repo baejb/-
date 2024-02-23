@@ -131,7 +131,7 @@ const Profile = ({userData}) => {
                     },
                   }
                     )
-                    console.log(response.data);
+               
             }catch(error){
                 console.log(error);
             }
@@ -149,7 +149,7 @@ const Profile = ({userData}) => {
                     }
                     ,
                 });
-                console.log(response);
+   
             } catch (error) {
                 console.log(error);
             }

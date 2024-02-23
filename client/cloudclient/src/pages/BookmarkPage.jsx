@@ -92,9 +92,9 @@ const BookmarkPage = () => {
                         atk: token,
                     }
                 });
-                console.log(response.data);
+            
                 setBookmarkData(response.data.result);
-                console.log(bookmarkData);
+         
             } catch (error) {
                 console.log(error);
             }
