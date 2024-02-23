@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 // import { useRecoilState } from 'recoil';
 // import { isLoggedInState,userIdState } from "../states/LoginAtoms";
 import { styled } from "styled-components";
-import Footer from "../components/Footer";
 import { TbDropletQuestion } from "react-icons/tb";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -22,7 +21,6 @@ const Container = styled.div`
 `
 const Title = styled.div`
     font-size: 18px;
-    width:100%;
     text-align: center;
     height: 20px;
     margin : 10%;
@@ -404,7 +402,6 @@ const SettingPage = () => {
             <PostBtn onClick={handlePostBtnClick}>생성하기</PostBtn>
         </FlexLayout>
         </Container>
-        <Footer/>
         </>
     );
 };
