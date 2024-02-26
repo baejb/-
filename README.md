@@ -2,7 +2,7 @@
 구르미 월드
 </h1>
 
-![구르미월드_소개이미지](https://github.com/baejb/cloudworld/assets/82064490/5f4d1094-ba9f-494d-840f-783f5020ab37)
+![구르미월드_소개이미지](https://github.com/baejb/cloudworld/assets/82064490/5f4d1094-ba9f-494d-840f-783f5020ab37)
 
 
 <p align="center">
@@ -90,31 +90,31 @@
 <hr>
 <h2>구현 화면 </h2>
 <h4>1. 랜딩 페이지 </h4> 
-<img width="318" height="700" alt="구르미월드_랜딩페이지" src="https://github.com/baejb/cloudworld/assets/82064490/9a6fc06d-f217-45f8-a462-1ca9eb3099b5">
+<img width="318" height="700" alt="구르미월드_랜딩페이지" src="https://github.com/baejb/cloudworld/assets/82064490/9a6fc06d-f217-45f8-a462-1ca9eb3099b5">
 <h4>2. 로그인 페이지</h4>
-<img width="318" height="700" alt="구르미월드_로그인" src="https://github.com/baejb/cloudworld/assets/82064490/6d1e82e1-16a4-4165-af85-4dff92fb1038">
+<img width="318" height="700" alt="구르미월드_로그인" src="https://github.com/baejb/cloudworld/assets/82064490/6d1e82e1-16a4-4165-af85-4dff92fb1038">
 <h4>3. 홈 페이지 </h4>
-<img width="318" height="700" alt="구르미월드_홈페이지(나)" src="https://github.com/baejb/cloudworld/assets/82064490/783f2616-a453-4fba-86b2-07d7b036e892"> <br> 
+<img width="318" height="700" alt="구르미월드_홈페이지(나)" src="https://github.com/baejb/cloudworld/assets/82064490/783f2616-a453-4fba-86b2-07d7b036e892"> <br> 
 - 내 홈페이지 <br> 
 
-<img width="318" height="700" alt="구르미월드_홈페이지(친구)" src="https://github.com/baejb/cloudworld/assets/82064490/e8a14f7c-5fa7-4df0-945b-2b1f70e23036"> <br> 
+<img width="318" height="700" alt="구르미월드_홈페이지(친구)" src="https://github.com/baejb/cloudworld/assets/82064490/e8a14f7c-5fa7-4df0-945b-2b1f70e23036"> <br> 
 -친구 홈페이지 <br> 
 <h4>4. 정보 수정 페이지</h4>
-<img width="318" height="700" alt="구르미월드_정보수정페이지" src="https://github.com/baejb/cloudworld/assets/82064490/b675a7e6-0a56-4225-a50c-bdd381a63633">
+<img width="318" height="700" alt="구르미월드_정보수정페이지" src="https://github.com/baejb/cloudworld/assets/82064490/b675a7e6-0a56-4225-a50c-bdd381a63633">
 <h4>5. 성장 페이지 </h4>
-<img width="318" height="700" alt="구르미월드_성장페이지(성장실패)" src="https://github.com/baejb/cloudworld/assets/82064490/c0563898-2a74-4460-88f6-0168f78724e4">
-<img width="318" height="700" alt="구르미월드_성장페이지(모든성장완료)" src="https://github.com/baejb/cloudworld/assets/82064490/28c60452-46c6-456e-8581-f011d61911e3">
+<img width="318" height="700" alt="구르미월드_성장페이지(성장실패)" src="https://github.com/baejb/cloudworld/assets/82064490/c0563898-2a74-4460-88f6-0168f78724e4">
+<img width="318" height="700" alt="구르미월드_성장페이지(모든성장완료)" src="https://github.com/baejb/cloudworld/assets/82064490/28c60452-46c6-456e-8581-f011d61911e3">
 <h4>6. 공유하기</h4>
-<img width="318" height="700" alt="구르미월드_공유하기" src="https://github.com/baejb/cloudworld/assets/82064490/8cfa39c6-b643-4b18-82dc-c21b6d2314b7">
+<img width="318" height="700" alt="구르미월드_공유하기" src="https://github.com/baejb/cloudworld/assets/82064490/8cfa39c6-b643-4b18-82dc-c21b6d2314b7">
 
 <h4>7. 친구 목록 페이지</h4>
-<img width="318" height="700" alt="구르미월드_친구목록페이지" src="https://github.com/baejb/cloudworld/assets/82064490/71ba199b-5429-4fe0-b5a5-15c207f4ac53">
+<img width="318" height="700" alt="구르미월드_친구목록페이지" src="https://github.com/baejb/cloudworld/assets/82064490/71ba199b-5429-4fe0-b5a5-15c207f4ac53">
 <h4>8. 방명록 페이지</h4>
-<img width="318" height="700" alt="구르미월드_방명록페이지(글없을때)" src="https://github.com/baejb/cloudworld/assets/82064490/b4202dc9-c05b-44dc-85d9-dbfdc5bb42ba"> <br> 
+<img width="318" height="700" alt="구르미월드_방명록페이지(글없을때)" src="https://github.com/baejb/cloudworld/assets/82064490/b4202dc9-c05b-44dc-85d9-dbfdc5bb42ba"> <br> 
 -방명록 글 없을 때  <br> 
-<img width="318" height="700" alt="구르미월드_방명록페이지(나)" src="https://github.com/baejb/cloudworld/assets/82064490/2b86b835-ccc8-4288-b1dd-a49cf225d996"> <br> 
+<img width="318" height="700" alt="구르미월드_방명록페이지(나)" src="https://github.com/baejb/cloudworld/assets/82064490/2b86b835-ccc8-4288-b1dd-a49cf225d996"> <br> 
 -내 방명록 <br> 
-<img width="318" height="700" alt="구르미월드_방명록페이지(친구)" src="https://github.com/baejb/cloudworld/assets/82064490/f44c4434-07b8-4277-9651-2674a9943b72"><br> 
+<img width="318" height="700" alt="구르미월드_방명록페이지(친구)" src="https://github.com/baejb/cloudworld/assets/82064490/f44c4434-07b8-4277-9651-2674a9943b72"><br> 
 -친구 방명록<br> 
 <hr>
 <h2>기술 스택</h2>
@@ -131,9 +131,9 @@
 
 <h3>Back-End</h3>
 
-|  JAVA   |SpringBoot| SpringSecurity |  JPA   |   MYSQL   |  JWT   |
-| :-----: | :-------: | :--------: | :------: | :-----: | :-----: | 
-| <img src=https://github.com/codestates-seb/seb44_main_034/raw/README/images/stack/java.svg width=60px height=60px> |<img src="https://github.com/codestates-seb/seb44_main_034/assets/111395967/48fb4b1c-16db-43f5-9d72-1ac2ff7a640d" width ="80" height ="50">|<img src="https://github.com/codestates-seb/seb44_main_034/assets/111395967/3183de14-78c3-41ea-8812-f9cfc1965ece" width ="80" height ="50"> |<img src="https://github.com/codestates-seb/seb44_main_034/assets/111395967/78414aad-c1af-4bcb-a2f7-8f6703c87b96" width ="80" height ="50">  |<img src="https://github.com/codestates-seb/seb44_main_034/assets/111395967/e92edcd5-6dca-4e63-b006-2b1b7973b2dc" width ="80" height ="50"> |<img src="https://github.com/codestates-seb/seb44_main_034/assets/111395967/80fe6786-8c00-4080-890d-b2a207dc5889" width ="80" height ="50">  |
+|  JAVA   |SpringBoot| SpringSecurity |  JPA   |   MYSQL   |  JWT   |  Redis  |
+| :-----: | :-------: | :--------: | :------: | :-----: | :-----: |  :-----: | 
+| <img src=https://github.com/codestates-seb/seb44_main_034/raw/README/images/stack/java.svg width=60px height=60px> |<img src="https://github.com/codestates-seb/seb44_main_034/assets/111395967/48fb4b1c-16db-43f5-9d72-1ac2ff7a640d" width ="80" height ="50">|<img src="https://github.com/codestates-seb/seb44_main_034/assets/111395967/3183de14-78c3-41ea-8812-f9cfc1965ece" width ="80" height ="50"> |<img src="https://github.com/codestates-seb/seb44_main_034/assets/111395967/78414aad-c1af-4bcb-a2f7-8f6703c87b96" width ="80" height ="50">  |<img src="https://github.com/codestates-seb/seb44_main_034/assets/111395967/e92edcd5-6dca-4e63-b006-2b1b7973b2dc" width ="80" height ="50"> |<img src="https://github.com/codestates-seb/seb44_main_034/assets/111395967/80fe6786-8c00-4080-890d-b2a207dc5889" width ="80" height ="50">  |<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbUK9zKHUR4qd8vmLVF6jR1KkE_2QKavVDgg&usqp=CAU" width ="80" height ="50">  |
 
 <hr>
 
