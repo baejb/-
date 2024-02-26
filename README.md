@@ -107,3 +107,7 @@
 <hr>
 
 <h2>문서</h2>
+피그마-https://www.figma.com/file/JMXPsFOM3XyRuNXjFtvVs8/%ED%99%94%EB%A9%B4%EC%84%A4%EA%B3%84?type=design&node-id=0-1&mode=design&t=Pdz8x0ruISR3sEBr-0 <br>
+노션-https://www.notion.so/ee645c37e8ee4c86873a1cb2f79c021a  <br>
+ERD-https://www.erdcloud.com/d/ScRWQiPotaiFkJhbZ  <br>
+API-https://diagnostic-freedom-600.notion.site/Cloud-API-fe365262b6224ee2807b508a06906e39  <br>
