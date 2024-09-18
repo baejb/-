@@ -27,7 +27,7 @@
 <table>
   <tbody>
     <tr>
-      <td align="center"><a href="https://github.com/kchaeys2"><img src="https://avatars.githubusercontent.com/u/82064490?v=4" width="150px;" alt=""/><br /><b>배정빈</b></a><br /></td>
+      <td align="center"><a href="https://github.com/baejb"><img src="https://avatars.githubusercontent.com/u/82064490?v=4" width="150px;" alt=""/><br /><b>배정빈</b></a><br /></td>
       <td align="center"><a href="https://github.com/tkamo2006"><img src="https://avatars.githubusercontent.com/u/101330766?v=4" width="150px;" alt=""/><br /><b>한유성</b></a><br /></td>
 </a><br /></td>
      <tr/>
